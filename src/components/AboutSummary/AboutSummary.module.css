@@ -1,0 +1,126 @@
+.aboutSection {
+  padding: 0; /* Removemos o padding para o vídeo ir de ponta a ponta */
+  position: relative;
+  width: 100%;
+  height: auto; /* A altura será definida pelo conteúdo */
+}
+
+.container {
+  max-width: 100%; /* O container ocupa toda a largura */
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center; /* Centraliza o card verticalmente */
+  justify-content: flex-end; /* Alinha o card à direita */
+  padding: 6rem 5%; /* Padding interno para o conteúdo não colar nas bordas */
+  min-height: 90vh; /* Altura mínima para garantir a visibilidade do vídeo */
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 70%);
+  z-index: -1;
+}
+
+/* Card de Conteúdo Sobreposto */
+.contentCard {
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
+  backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+  -webkit-backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 550px; /* Largura máxima do card */
+  z-index: 1;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-dark-primary);
+}
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #333; /* Texto mais escuro para melhor contraste */
+  margin-bottom: 2.5rem;
+}
+
+.coreValues {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.valueItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.valueIcon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #fff5f5;
+  color: var(--color-primary-red);
+  font-size: 1.5rem;
+}
+
+.valueItem h4 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--color-dark-primary);
+}
+
+.valueItem p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .container {
+    justify-content: center; /* Centraliza o card em telas menores */
+    padding: 4rem 5%;
+  }
+  .overlay {
+    background: rgba(0,0,0,0.5); /* Overlay uniforme em telas menores */
+  }
+  .contentCard {
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.95); /* Aumenta a opacidade para legibilidade */
+  }
+}
+
+@media (max-width: 768px) {
+  .contentCard {
+    padding: 2rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+}

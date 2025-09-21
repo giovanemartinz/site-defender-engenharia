@@ -1,0 +1,194 @@
+.chatbotContainer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1100;
+}
+
+.chatBubble {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-primary-red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+.chatBubble:hover { transform: scale(1.1); }
+
+.chatWindow {
+  width: 380px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  background-color: var(--color-dark-primary);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.chatHeader h3 { margin: 0; font-size: 1.1rem; }
+.closeButton { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+.messageArea {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #f0f2f5;
+}
+
+.message {
+  padding: 0.7rem 1.2rem;
+  border-radius: 18px;
+  max-width: 85%;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.botMessage {
+  background-color: #fff;
+  color: var(--color-dark-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.userMessage {
+  background-color: var(--color-primary-red);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+/* --- Indicador de "Digitando" --- */
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.typingIndicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  animation: typing 1s infinite ease-in-out;
+}
+.typingIndicator span:nth-child(2) { animation-delay: 0.15s; }
+.typingIndicator span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* --- Área de Input --- */
+.inputArea, .optionsContainer, .optionsContainerCheckbox {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+  flex-shrink: 0;
+}
+.inputArea { display: flex; }
+
+.textInput {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+.textInput:focus { outline: none; border-color: var(--color-primary-red); }
+
+.sendButton {
+  background: none; border: none; font-size: 1.5rem;
+  color: var(--color-primary-red); cursor: pointer; padding: 0 0.5rem 0 1rem;
+}
+
+/* --- Botões de Opção --- */
+.optionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.optionButton {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--color-primary-red);
+  color: var(--color-primary-red);
+  background: #fff;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.optionButton:hover {
+  background: var(--color-primary-red);
+  color: #fff;
+}
+
+/* --- Opções de Checkbox --- */
+.optionsContainerCheckbox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.checkboxItem input { accent-color: var(--color-primary-red); width: 1.1em; height: 1.1em; }
+.checkboxItem label { color: #333; cursor: pointer; }
+
+.confirmButton {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--color-primary-red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.confirmButton:disabled { background: #ccc; cursor: not-allowed; }
+
+.completedMessage {
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.inputAreaDisabled { height: 60px; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .chatbotContainer { bottom: 1rem; right: 1rem; }
+  .chatWindow { width: calc(100vw - 2rem); height: calc(100vh - 7rem); }
+}

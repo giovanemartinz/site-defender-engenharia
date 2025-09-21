@@ -1,0 +1,184 @@
+/* --- Seção Principal --- */
+.contactSection {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-dark-primary);
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden; /* Evita qualquer barra de rolagem indesejada */
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* --- Painel Central --- */
+.mainPanel {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr; /* Formulário ocupa 2.5 partes, sidebar 1 parte */
+  background: #222; /* Um tom de escuro mais suave que o fundo */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Área do Formulário (Esquerda) --- */
+.form {
+  padding: 3rem 3.5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.titleHighlight {
+  background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-red-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description {
+  color: #aaa;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+.formGroup { margin-bottom: 0; }
+.gridSpan4 { grid-column: span 4; }
+.gridSpan8 { grid-column: span 8; }
+.gridSpan12 { grid-column: span 12; }
+
+.formGroup label, .formGroup legend {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+.formGroup fieldset { border: none; padding: 0; margin: 0; }
+
+.formGroup input, .formGroup textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #2a2a2a;
+  color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formGroup input:focus, .formGroup textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-red);
+  box-shadow: 0 0 0 3px rgba(255, 9, 8, 0.2);
+}
+
+.optionsGroup { display: flex; gap: 1.5rem; }
+
+/* O SEGREDO PARA COMPACTAR */
+.optionsGroupCheckbox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas para os checkboxes */
+  gap: 0.8rem;
+}
+
+.optionItem { display: flex; align-items: center; gap: 0.6rem; }
+
+.optionItem label {
+  font-weight: 400; color: #ccc; cursor: pointer; text-transform: none;
+}
+
+.optionItem input[type="radio"], .optionItem input[type="checkbox"] {
+  width: auto; cursor: pointer; accent-color: var(--color-primary-red);
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--color-primary-red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background: var(--color-primary-red-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 9, 8, 0.2);
+}
+
+/* --- Barra Lateral (Direita) --- */
+.infoSidebar {
+  background-color: #1c1c1c;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 16px 16px 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarTitle {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 1rem;
+}
+
+.contactList { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+.contactList li { display: flex; gap: 1rem; margin-bottom: 2rem; }
+.icon { font-size: 1.2rem; color: var(--color-primary-red); margin-top: 4px; }
+.contactList span { display: block; font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 0.2rem; }
+.contactList a, .contactList p { font-size: 1rem; color: #eee; margin: 0; }
+
+.sidebarFooter {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1200px) {
+  .mainPanel {
+    grid-template-columns: 1fr; /* Coluna única */
+  }
+  .contactSection {
+    min-height: auto;
+    padding: 4rem 1rem;
+  }
+  .infoSidebar {
+    border-radius: 0 0 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .optionsGroupCheckbox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .gridSpan4 { grid-column: span 12; }
+  .gridSpan8 { grid-column: span 12; }
+  .form { padding: 2rem; }
+}

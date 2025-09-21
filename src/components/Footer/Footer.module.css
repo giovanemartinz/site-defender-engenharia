@@ -1,0 +1,149 @@
+.footer {
+  background-color: var(--color-dark-primary);
+  color: #a9a9a9;
+  padding: 5rem 5% 2rem 5%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #333;
+}
+
+/* CORREÇÃO DO LOGO */
+.logoWrapper {
+  display: inline-block; /* Garante que o link se ajuste à imagem */
+  margin-bottom: 1rem;
+}
+
+.logoImage {
+  width: 180px; /* Define a largura */
+  height: auto; /* Deixa a altura se ajustar automaticamente */
+  object-fit: contain; /* Garante a proporção */
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.columnTitle {
+  font-size: 1.2rem;
+  color: var(--color-light-primary);
+  margin-bottom: 1.5rem;
+  font-family: var(--font-heading);
+}
+
+.linkList, .contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkList li, .contactList li {
+  margin-bottom: 0.8rem;
+}
+
+.linkList a, .contactList a {
+  color: #a9a9a9;
+  transition: color 0.3s ease;
+  cursor: pointer; /* Adicionado para os links de rolagem */
+}
+
+.linkList a:hover, .contactList a:hover {
+  color: var(--color-light-primary);
+}
+
+.contactList li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Barra Inferior */
+.footerBottom {
+  padding-top: 2rem;
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.copyright {
+  flex-basis: 100%; /* Ocupa a linha toda em telas pequenas */
+  order: 1; /* Primeira posição */
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1.5rem;
+  flex-basis: 100%;
+  justify-content: center;
+  order: 3;
+}
+
+.socialIcons a {
+  color: #a9a9a9;
+  font-size: 1.3rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.socialIcons a:hover {
+  color: var(--color-light-primary);
+  transform: translateY(-3px);
+}
+
+/* SEUS CRÉDITOS */
+.credits {
+  flex-basis: 100%;
+  order: 4;
+}
+
+.credits a {
+  color: var(--color-light-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.credits a:hover {
+  color: var(--color-primary-red);
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footerBottom {
+    text-align: left;
+  }
+  .copyright {
+    flex-basis: auto;
+    order: 1;
+  }
+  .socialIcons {
+    flex-basis: auto;
+    justify-content: center;
+    order: 2;
+  }
+  .credits {
+    flex-basis: auto;
+    order: 3;
+    text-align: right;
+  }
+}

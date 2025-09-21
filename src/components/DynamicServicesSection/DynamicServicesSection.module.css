@@ -1,0 +1,149 @@
+.servicesSection {
+  padding: 6rem 0;
+  background: #f0f2f5;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 5%;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 3rem;
+}
+
+/* --- Carrossel de Categorias (sem alterações) --- */
+.categoryScroller {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+  mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+  margin-bottom: 3rem;
+}
+
+.categorySlider {
+  display: flex;
+  width: calc(280px * 10);
+  animation: scroll 40s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-280px * 5)); }
+}
+
+.categoryScroller:hover .categorySlider {
+  animation-play-state: paused;
+}
+
+.categoryButton {
+  flex-shrink: 0;
+  width: 260px;
+  margin: 0 10px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.categoryButton:hover {
+  border-color: var(--color-primary-red);
+  color: var(--color-primary-red);
+}
+
+.categoryButton.active {
+  background-color: var(--color-primary-red);
+  border-color: var(--color-primary-red);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* --- Grid de Serviços (ESTRUTURA DE COLUNAS REFEITA) --- */
+.serviceGrid {
+  display: grid;
+  /* COMEÇA COM 3 COLUNAS EM TELAS LARGAS */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.serviceCard {
+  background: #fff;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid transparent;
+  color: var(--color-dark-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  aspect-ratio: 1 / 1;
+}
+
+.serviceCard:hover {
+  border-color: var(--color-primary-red);
+}
+
+.serviceCardIcon {
+  font-size: 2.5rem; /* Ícone um pouco menor para dar espaço ao texto */
+  color: var(--color-primary-red);
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.serviceCard:hover .serviceCardIcon {
+  transform: scale(1.1);
+}
+
+.serviceText {
+  line-height: 1.4;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* --- RESPONSIVIDADE DO GRID --- */
+
+/* Para tablets e telas menores */
+@media (max-width: 992px) {
+  .serviceGrid {
+    /* PASSA PARA 2 COLUNAS */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Para celulares */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 3%;
+  }
+  .serviceGrid {
+    /* Continua com 2 colunas, mas o card se ajusta */
+    gap: 1rem;
+  }
+  .serviceCard {
+    padding: 1.5rem 1rem;
+    aspect-ratio: auto; /* Remove o aspect-ratio para o texto não ser cortado */
+    min-height: 180px; /* Garante uma altura mínima */
+  }
+  .serviceText {
+    font-size: 0.9rem;
+  }
+}

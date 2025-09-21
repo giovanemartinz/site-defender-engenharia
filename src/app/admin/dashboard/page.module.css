@@ -1,0 +1,232 @@
+.dashboardLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.mainContent {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  color: var(--color-dark-primary);
+  margin: 0;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  color: #999;
+}
+
+.searchInput {
+  width: 100%;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary-red);
+  box-shadow: 0 0 0 3px rgba(255, 9, 8, 0.1);
+}
+
+.leadsTableWrapper {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.leadsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leadsTable th, .leadsTable td {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: top;
+}
+
+.leadsTable th {
+  background-color: #f9fafb;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.contactInfo p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.3rem 0;
+  color: #333;
+}
+
+.contactInfo a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contactInfo a:hover {
+  color: var(--color-primary-red);
+  text-decoration: underline;
+}
+
+.contactInfo svg {
+  color: #888;
+}
+
+.linkRow {
+  justify-content: space-between;
+}
+
+.whatsappIcon {
+  color: #25D366 !important;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.whatsappIcon:hover {
+  transform: scale(1.2);
+}
+
+.servicesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.servicesList span {
+  background-color: #e4baa8;
+  color: #a35b37;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.messageCell {
+  max-width: 350px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #555;
+  font-style: italic;
+}
+
+.noMessage {
+  color: #999;
+}
+
+.noResults {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #555;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--color-primary-red);
+  color: #fff;
+  border-color: var(--color-primary-red);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsividade da Tabela */
+@media (max-width: 992px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .searchInput {
+    max-width: none;
+  }
+  .leadsTable thead {
+    display: none;
+  }
+  .leadsTable tr {
+    display: block;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  .leadsTable td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding: 1rem 1rem 1rem 50%;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .leadsTable td:last-child {
+    border-bottom: none;
+  }
+  .leadsTable td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: calc(50% - 2rem);
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+  }
+}

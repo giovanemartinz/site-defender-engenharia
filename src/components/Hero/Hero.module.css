@@ -1,0 +1,136 @@
+/* --- Seção Principal Imersiva --- */
+.heroSection {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center; /* Centraliza o conteúdo verticalmente */
+  overflow: hidden;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+/* O gradiente inteligente é a chave do design */
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(5, 5, 10, 0.85) 0%, /* Início escuro e opaco para o texto */
+    rgba(5, 5, 10, 0.8) 40%, /* Mantém a opacidade na área do texto */
+    rgba(5, 5, 10, 0.2) 65%, /* Transição suave */
+    transparent 80%        /* Fica transparente para revelar o vídeo */
+  );
+  z-index: 1;
+}
+
+/* Container do conteúdo posicionado sobre o gradiente */
+.contentContainer {
+  position: relative;
+  z-index: 2;
+  padding: 0 5%;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.headline {
+  font-size: 3.8rem; /* Um pouco maior para mais impacto */
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  max-width: 650px; /* Limita a largura do texto */
+}
+
+.subheadline {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+  color: #ccc;
+  max-width: 600px;
+}
+
+.ctaWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ctaPrimary, .ctaSecondary {
+  padding: 0.9rem 2.2rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.ctaPrimary {
+  background-color: var(--color-primary-red);
+  color: #fff;
+  border-color: var(--color-primary-red);
+}
+.ctaPrimary:hover {
+  background-color: var(--color-primary-red-light);
+  border-color: var(--color-primary-red-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 9, 8, 0.2);
+}
+
+.ctaSecondary {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.ctaSecondary:hover {
+  background-color: #fff;
+  color: var(--color-dark-primary);
+  transform: translateY(-3px);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1024px) {
+  .headline { font-size: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    text-align: center; /* Centraliza tudo no mobile */
+    justify-content: center;
+  }
+  .contentContainer {
+    padding: 0 8%;
+  }
+  /* O gradiente muda para ser mais forte e uniforme no mobile */
+  .videoOverlay {
+    background: rgba(5, 5, 10, 0.7);
+  }
+  .headline, .subheadline {
+    max-width: 100%;
+  }
+  .ctaWrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .ctaPrimary, .ctaSecondary {
+    width: 100%;
+    max-width: 350px;
+  }
+}

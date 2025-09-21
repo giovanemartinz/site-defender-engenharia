@@ -1,0 +1,131 @@
+.loginPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem); /* Compensa o padding do body */
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 450px;
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.logoWrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* CORREÇÃO DO LOGO */
+.logoImage {
+  object-fit: contain; /* Garante que a proporção seja mantida */
+  width: 200px;
+  height: auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: var(--color-dark-primary);
+}
+
+.inputGroup {
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Específico para o campo de senha ter padding à direita para o ícone */
+.inputGroup input[type="password"],
+.inputGroup input[type="text"]#password {
+  padding-right: 3rem;
+}
+
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: var(--color-primary-red);
+  box-shadow: 0 0 0 3px rgba(255, 9, 8, 0.1);
+}
+
+/* NOVO: Wrapper para o input de senha para posicionar o ícone */
+.passwordWrapper {
+  position: relative;
+}
+
+/* NOVO: Estilo para o ícone do "olhinho" */
+.eyeIcon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(25%); /* Ajuste fino do alinhamento vertical */
+  cursor: pointer;
+  color: #888;
+  font-size: 1.2rem;
+}
+
+.eyeIcon:hover {
+  color: #333;
+}
+
+.errorMessage {
+  color: #c0392b;
+  background-color: #f9e4e2;
+  border: 1px solid #e7a098;
+  padding: 0.8rem;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-primary-red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: var(--color-primary-red-light);
+  transform: translateY(-2px);
+}
+
+.loginButton:disabled {
+  background-color: #ff8c00;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .loginPage {
+    align-items: flex-start; /* Evita que o teclado do celular empurre o card para cima */
+  }
+  .loginCard {
+    padding: 2rem;
+  }
+}

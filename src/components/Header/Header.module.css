@@ -1,0 +1,152 @@
+/* Estado Padrão (sobre o Hero) */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.8rem 5%;
+  z-index: 1000;
+  background-color: rgba(10, 10, 10, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Suporte para Safari */
+  transition: background-color 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out, border-bottom 0.4s ease-in-out, padding 0.4s ease-in-out;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.logoImage {
+  object-fit: contain; /* Garante que o logo não achate */
+  filter: brightness(0) invert(1); /* Hack para deixar o logo PNG branco */
+  height: auto;
+  width: 40%;
+  transition: filter 0.4s ease-in-out, height 0.4s ease-in-out;
+}
+
+.navLink, .mobileToggle {
+  color: var(--color-light-primary); /* Textos brancos por padrão */
+}
+
+/* Estado de Rolagem (.scrolled) */
+.header.scrolled {
+  background-color: var(--color-light-primary);
+  backdrop-filter: none;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.header.scrolled .navLink, .header.scrolled .mobileToggle {
+  color: var(--color-dark-primary); /* Textos escuros ao rolar */
+}
+
+.header.scrolled .logoImage {
+  filter: none; /* Remove o filtro para mostrar o logo original */
+}
+
+/* --- Estilos restantes (com pequenas adaptações) --- */
+
+.navDesktop {
+  display: none;
+}
+
+.ctaContainer {
+  display: none;
+}
+
+.ctaButton {
+  background-color: var(--color-primary-red);
+  color: var(--color-light-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.ctaButton:hover {
+  background-color: var(--color-primary-red-light);
+  transform: scale(1.05);
+}
+
+.whatsappIcon {
+  font-size: 1.1rem;
+}
+
+.mobileToggle {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1001;
+  transition: color 0.3s ease;
+}
+
+.navMobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-light-primary);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  padding: 1rem 5%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.navLinkMobile {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-dark-primary);
+  border-bottom: 1px solid var(--color-light-secondary);
+}
+
+.ctaButtonMobile {
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .mobileToggle { display: none; }
+  .navMobile { display: none; }
+  .navDesktop { display: flex; align-items: center; gap: 2rem; }
+  .ctaContainer { display: block; }
+  
+  .navLink {
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+  }
+
+  .navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary-red);
+    transition: width 0.3s ease;
+  }
+
+  .navLink:hover::after {
+    width: 100%;
+  }
+
+  .header.scrolled .navLink::after {
+    background-color: var(--color-primary-red);
+  }
+}

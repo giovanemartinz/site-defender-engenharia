@@ -1,0 +1,102 @@
+.testimonialsSection {
+  padding: 6rem 5%;
+  background-color: var(--color-light-secondary); /* Fundo claro para contraste */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mainTitle {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.mainSubtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 5rem; /* Mais espaço antes dos cards */
+}
+
+/* --- Grid de Depoimentos --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5rem 2rem; /* Aumenta o espaçamento para a foto ter espaço */
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  padding-top: 4.5rem; /* Espaço no topo para a imagem */
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  padding: 5px; /* Cria o efeito de borda branca */
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profileImage {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.quoteIcon {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 3rem;
+  color: #f0f2f5;
+  z-index: 0;
+}
+
+.quote {
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  color: #ffc107; /* Cor de estrela dourada */
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+  color: var(--color-dark-primary);
+}
+
+.role {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr; /* Coluna única em tablets e celulares */
+    gap: 5rem;
+  }
+}
