@@ -25,7 +25,7 @@
   object-fit: contain; /* Garante que o logo não achate */
   filter: brightness(0) invert(1); /* Hack para deixar o logo PNG branco */
   height: auto;
-  width: 40%;
+  width: 30%;
   transition: filter 0.4s ease-in-out, height 0.4s ease-in-out;
 }
 
