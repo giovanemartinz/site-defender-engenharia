@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IoChatbubbles, IoClose, IoSend, IoCheckmarkDone } from 'react-icons/io5';
 import styles from './ChatbotPopup.module.css';
 
-// O "ROTEIRO" DO NOSSO CHATBOT, BASEADO NO FORMULÁRIO
 const formScript = [
+  // ... (seu formScript permanece o mesmo)
   { id: 'start', question: 'Para começar, qual é o seu nome?', key: 'nome', type: 'text' },
   { id: 'phone', question: 'Ótimo! E qual o seu celular com DDD para contato?', key: 'celular', type: 'text' },
   { id: 'email', question: 'Perfeito. Agora, qual seu melhor e-mail?', key: 'email', type: 'text' },
@@ -21,12 +21,14 @@ const TypingIndicator = () => (
     </motion.div>
 );
 
-const ChatbotPopup = () => {
+// ACEITA A NOVA PROP 'isExpanded'
+const ChatbotPopup = ({ isExpanded }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
+    // ... (toda a sua lógica interna permanece a mesma)
     const [leadData, setLeadData] = useState({});
     const [selectedCheckboxOptions, setSelectedCheckboxOptions] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -34,7 +36,6 @@ const ChatbotPopup = () => {
 
     useEffect(() => {
         if (isOpen && messages.length === 0) {
-            // Inicia a conversa
             setIsTyping(true);
             setTimeout(() => {
                 setMessages([{ id: 'intro1', sender: 'bot', text: 'Olá! Bem-vindo à Defender Engenharia.' }]);
@@ -54,28 +55,21 @@ const ChatbotPopup = () => {
     
     const handleUserInput = (answer) => {
         const currentQuestion = formScript[currentStep];
-
-        // 1. Adicionar resposta do usuário ao chat
         const userMessage = { id: Date.now(), sender: 'user', text: answer };
         setMessages(prev => [...prev, userMessage]);
-        
-        // 2. Salvar o dado
         setLeadData(prev => ({ ...prev, [currentQuestion.key]: answer }));
-        
-        // 3. Ir para a próxima pergunta
         goToNextStep();
     };
 
     const handleCheckboxSubmit = () => {
         if (selectedCheckboxOptions.length === 0) return;
         handleUserInput(selectedCheckboxOptions.join(', '));
-        setSelectedCheckboxOptions([]); // Limpa a seleção para o próximo uso
+        setSelectedCheckboxOptions([]);
     };
 
     const goToNextStep = () => {
         setIsTyping(true);
         const nextStepIndex = currentStep + 1;
-
         setTimeout(() => {
             setIsTyping(false);
             if (nextStepIndex < formScript.length) {
@@ -106,12 +100,10 @@ const ChatbotPopup = () => {
         if (isCompleted) {
             return <div className={styles.completedMessage}><IoCheckmarkDone /> Conversa finalizada!</div>;
         }
-
         const currentQuestion = formScript[currentStep];
         if (!currentQuestion || isTyping) {
-            return <div className={styles.inputAreaDisabled}></div>; // Área vazia enquanto o bot "pensa"
+            return <div className={styles.inputAreaDisabled}></div>;
         }
-
         switch (currentQuestion.type) {
             case 'text':
                 return (
@@ -144,9 +136,16 @@ const ChatbotPopup = () => {
                 return null;
         }
     };
+    
+    // Variantes para o texto do botão do chatbot
+    const textVariants = {
+        hidden: { width: 0, opacity: 0, marginLeft: 0 },
+        visible: { width: 'auto', opacity: 1, marginLeft: '0.5rem' }
+    };
 
     return (
-        <div className={styles.chatbotContainer}>
+        // O CONTAINER PRINCIPAL FOI REMOVIDO E A LÓGICA MOVIDA PARA DENTRO
+        <>
             <AnimatePresence>
                 {!isOpen && (
                     <motion.button 
@@ -159,6 +158,16 @@ const ChatbotPopup = () => {
                       exit={{ scale: 0 }}
                     >
                         <IoChatbubbles size={28} />
+                        {/* TEXTO ANIMADO ADICIONADO AQUI */}
+                        <motion.span
+                            variants={textVariants}
+                            initial="hidden"
+                            animate={isExpanded ? 'visible' : 'hidden'}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className={styles.buttonText}
+                        >
+                          Fale com Especialista
+                        </motion.span>
                     </motion.button>
                 )}
             </AnimatePresence>
@@ -181,7 +190,7 @@ const ChatbotPopup = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 };
 

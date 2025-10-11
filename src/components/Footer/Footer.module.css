@@ -1,7 +1,15 @@
 .footer {
+  width: 100%;
+}
+
+/* --- PAINEL PRINCIPAL ESCURO --- */
+.mainContent {
   background-color: var(--color-dark-primary);
-  color: #a9a9a9;
-  padding: 5rem 5% 2rem 5%;
+  color: var(--color-light-primary);
+  padding: 5rem 5% 4rem 5%;
+  /* ALTERAÇÃO 1: Arredondamento removido. */
+  /* border-radius: 24px 24px 0 0; */
+  margin: 0 auto;
 }
 
 .container {
@@ -11,107 +19,129 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid #333;
 }
 
-/* CORREÇÃO DO LOGO */
+/* Coluna 1: Logo e Endereço */
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
 .logoWrapper {
-  display: inline-block; /* Garante que o link se ajuste à imagem */
-  margin-bottom: 1rem;
+  display: inline-block;
 }
 
 .logoImage {
-  width: 180px; /* Define a largura */
-  height: auto; /* Deixa a altura se ajustar automaticamente */
-  object-fit: contain; /* Garante a proporção */
+  object-fit: contain;
+  /* ALTERAÇÃO 2: Largura da logo aumentada para dar mais destaque. */
+  width: 220px; 
+  height: auto; /* A altura se ajustará automaticamente */
 }
 
-.description {
-  font-size: 0.95rem;
+.address {
+  font-size: 1rem;
   line-height: 1.6;
-  max-width: 300px;
+  color: #ccc;
+  max-width: 280px;
 }
 
-.columnTitle {
-  font-size: 1.2rem;
-  color: var(--color-light-primary);
-  margin-bottom: 1.5rem;
-  font-family: var(--font-heading);
-}
-
-.linkList, .contactList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.linkList li, .contactList li {
-  margin-bottom: 0.8rem;
-}
-
-.linkList a, .contactList a {
-  color: #a9a9a9;
-  transition: color 0.3s ease;
-  cursor: pointer; /* Adicionado para os links de rolagem */
-}
-
-.linkList a:hover, .contactList a:hover {
-  color: var(--color-light-primary);
-}
-
-.contactList li {
+.linkWithArrow {
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  transition: opacity 0.3s ease;
+}
+.linkWithArrow:hover {
+  opacity: 0.8;
 }
 
-/* Barra Inferior */
-.footerBottom {
-  padding-top: 2rem;
+.arrowIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: var(--color-dark-primary);
   display: flex;
-  flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
   align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  text-align: center;
+  justify-content: center;
+}
+
+/* Coluna 2: Contato */
+.contactColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactTitle {
+  color: #888;
   font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
 }
 
-.copyright {
-  flex-basis: 100%; /* Ocupa a linha toda em telas pequenas */
-  order: 1; /* Primeira posição */
+.phoneNumber {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
 }
 
-.socialIcons {
+.emailLink {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+.emailLink:hover {
+  color: #fff;
+}
+
+/* Coluna 3: Social */
+.socialColumn .socialIcons {
   display: flex;
   gap: 1.5rem;
-  flex-basis: 100%;
-  justify-content: center;
-  order: 3;
 }
 
 .socialIcons a {
-  color: #a9a9a9;
-  font-size: 1.3rem;
+  color: #ccc;
+  font-size: 1.8rem;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .socialIcons a:hover {
-  color: var(--color-light-primary);
+  color: #fff;
   transform: translateY(-3px);
 }
 
-/* SEUS CRÉDITOS */
+/* --- BARRA INFERIOR CLARA --- */
+.footerBottom {
+  background-color: var(--color-light-secondary);
+  padding: 1.5rem 5%;
+  color: #555;
+}
+
+.bottomContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright {
+  font-size: 0.9rem;
+}
+
 .credits {
-  flex-basis: 100%;
-  order: 4;
+  font-size: 0.9rem;
 }
 
 .credits a {
-  color: var(--color-light-primary);
+  color: var(--color-dark-primary);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -121,29 +151,22 @@
   color: var(--color-primary-red);
 }
 
-/* Responsividade */
-@media (min-width: 768px) {
+/* --- Responsividade --- */
+@media (max-width: 992px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
+  }
+  .infoColumn {
+    grid-column: 1 / -1;
   }
 }
 
-@media (min-width: 1024px) {
-  .footerBottom {
-    text-align: left;
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
-  .copyright {
-    flex-basis: auto;
-    order: 1;
-  }
-  .socialIcons {
-    flex-basis: auto;
-    justify-content: center;
-    order: 2;
-  }
-  .credits {
-    flex-basis: auto;
-    order: 3;
-    text-align: right;
+  .bottomContent {
+    flex-direction: column;
+    text-align: center;
   }
 }

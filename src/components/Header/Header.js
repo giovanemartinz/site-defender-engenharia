@@ -1,15 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-// MODIFICAÇÃO: AnimatePresence foi adicionado aqui
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 import styles from './Header.module.css';
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const navLinks = [
     { targetId: 'hero', label: 'Início' },
@@ -19,29 +17,20 @@ export const Header = () => {
     { targetId: 'contato', label: 'Contato' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const handleScrollToSection = (e, targetId) => {
     e.preventDefault();
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
-      // O ideal é pegar a altura do header dinamicamente, mas 80 é um bom valor
-      const headerOffset = 80;
+      const headerHeight = 80; // ATUALIZADO para a nova altura do header
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
       });
     }
-    setNavOpen(false); // Fecha o menu mobile após o clique
+    setNavOpen(false);
   };
 
   const headerVariants = {
@@ -51,7 +40,7 @@ export const Header = () => {
 
   return (
     <motion.header
-      className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}
+      className={styles.header}
       variants={headerVariants}
       initial="hidden"
       animate="visible"
@@ -59,16 +48,15 @@ export const Header = () => {
       <div className={styles.container}>
         <a href="#hero" onClick={(e) => handleScrollToSection(e, 'hero')} className={styles.logo}>
           <Image
-            src="/logo-defender.png"
+            src="/logonova.png"
             alt="Defender - Proteção Contra Incêndio"
-            width={300}
-            height={30}
+            width={300} // Tamanho ideal para o novo header
+            height={54} // Proporção correta para a largura
             priority
             className={styles.logoImage}
           />
         </a>
 
-        {/* Navegação Desktop */}
         <nav className={styles.navDesktop}>
           {navLinks.map((link) => (
             <a key={link.targetId} href={`#${link.targetId}`} onClick={(e) => handleScrollToSection(e, link.targetId)} className={styles.navLink}>
@@ -77,15 +65,13 @@ export const Header = () => {
           ))}
         </nav>
 
-        {/* CTAs Desktop */}
         <div className={styles.ctaContainer}>
           <a href="#contato" onClick={(e) => handleScrollToSection(e, 'contato')} className={styles.ctaButton}>
             <FaWhatsapp className={styles.whatsappIcon} />
-            Fale Conosco
+            Solicitar Orçamento
           </a>
         </div>
 
-        {/* Botão Mobile Toggle */}
         <button
           className={styles.mobileToggle}
           onClick={() => setNavOpen(!navOpen)}
@@ -95,7 +81,6 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Navegação Mobile (Dropdown) */}
       <AnimatePresence>
         {navOpen && (
           <motion.nav

@@ -1,19 +1,19 @@
 .aboutSection {
-  padding: 0; /* Removemos o padding para o vídeo ir de ponta a ponta */
+  padding: 0;
   position: relative;
   width: 100%;
-  height: auto; /* A altura será definida pelo conteúdo */
+  height: auto;
 }
 
 .container {
-  max-width: 100%; /* O container ocupa toda a largura */
+  max-width: 100%;
   margin: 0;
   position: relative;
   display: flex;
-  align-items: center; /* Centraliza o card verticalmente */
-  justify-content: flex-end; /* Alinha o card à direita */
-  padding: 6rem 5%; /* Padding interno para o conteúdo não colar nas bordas */
-  min-height: 90vh; /* Altura mínima para garantir a visibilidade do vídeo */
+  align-items: center;
+  justify-content: flex-end;
+  /* ALTERAÇÃO 1: Padding vertical drasticamente reduzido para a seção toda */
+  padding: 5rem 5%;
 }
 
 .backgroundVideo {
@@ -38,87 +38,94 @@
 
 /* Card de Conteúdo Sobreposto */
 .contentCard {
-  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com leve transparência */
-  backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 3rem;
+  /* ALTERAÇÃO 2: Padding interno do card reduzido */
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
-  max-width: 550px; /* Largura máxima do card */
+  max-width: 550px;
   z-index: 1;
 }
 
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.2rem; /* Título levemente menor */
+  /* ALTERAÇÃO 3: Margem inferior reduzida */
+  margin-bottom: 0.75rem;
   color: var(--color-dark-primary);
 }
 
 .content {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #333; /* Texto mais escuro para melhor contraste */
-  margin-bottom: 2.5rem;
+  font-size: 1rem; /* Conteúdo levemente menor */
+  line-height: 1.6;
+  color: #333;
+  /* ALTERAÇÃO 4: Margem inferior reduzida */
+  margin-bottom: 1.5rem;
 }
 
 .coreValues {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  /* ALTERAÇÃO 5: Espaçamento entre Missão/Visão/Valores reduzido */
+  gap: 1rem;
 }
 
 .valueItem {
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
+  /* ALTERAÇÃO 6: Espaçamento entre ícone e texto reduzido */
+  gap: 1rem;
 }
 
 .valueIcon {
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  /* ALTERAÇÃO 7: Ícone e sua fonte interna diminuídos */
+  width: 45px;
+  height: 45px;
+  font-size: 1.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background-color: #fff5f5;
   color: var(--color-primary-red);
-  font-size: 1.5rem;
 }
 
 .valueItem h4 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   color: var(--color-dark-primary);
 }
 
 .valueItem p {
   margin: 0;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.5;
+  font-size: 0.9rem;
 }
 
 /* Responsividade */
 @media (max-width: 992px) {
   .container {
-    justify-content: center; /* Centraliza o card em telas menores */
-    padding: 4rem 5%;
+    justify-content: center;
+    padding: 3rem 5%; /* Padding ajustado também na versão responsiva */
   }
   .overlay {
-    background: rgba(0,0,0,0.5); /* Overlay uniforme em telas menores */
+    background: rgba(0,0,0,0.5);
   }
   .contentCard {
     max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.95); /* Aumenta a opacidade para legibilidade */
+    background-color: rgba(255, 255, 255, 0.95);
   }
 }
 
 @media (max-width: 768px) {
   .contentCard {
-    padding: 2rem;
+    padding: 1.5rem;
   }
   .title {
     font-size: 2rem;

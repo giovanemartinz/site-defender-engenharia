@@ -2,9 +2,9 @@ import { Montserrat, Open_Sans } from 'next/font/google';
 import '../globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import ChatbotPopup from '@/components/ChatbotPopup/ChatbotPopup'; // 1. Importar
+// 1. IMPORTAR O NOVO COMPONENTE
+import FloatingActions from '@/components/FloatingActions/FloatingActions';
 
-// ... (configuração das fontes)
 const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-heading',
@@ -29,7 +29,8 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
-        <ChatbotPopup /> {/* 2. Adicionar aqui, fora do main */}
+        {/* 2. SUBSTITUIR O CHATBOT ANTIGO PELO NOVO COMPONENTE */}
+        <FloatingActions />
       </body>
     </html>
   );

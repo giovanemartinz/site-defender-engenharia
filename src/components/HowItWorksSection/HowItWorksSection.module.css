@@ -1,6 +1,6 @@
 .howItWorksSection {
   padding: 6rem 5%;
-  background-color: var(--color-light-primary); /* Fundo branco e limpo */
+  background-color: var(--color-light-primary);
 }
 
 .container {
@@ -23,73 +23,97 @@
   margin-right: auto;
 }
 
-/* --- Novo Layout em Grid --- */
 .processGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
-.stepCard {
+/* --- ESTRUTURA DA ANIMAÇÃO DE FLIP 3D --- */
+
+/* 1. O Container: Cria o espaço 3D (perspectiva) */
+.stepCardContainer {
+  background-color: transparent;
+  min-height: 480px; /* Altura fixa para todos os cards */
+  perspective: 1500px; /* A "profundidade" da cena 3D */
+}
+
+/* 2. O Flipper: O elemento que realmente vai girar */
+.cardFlipper {
   position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s; /* Duração da animação de giro */
+  transform-style: preserve-3d;
+}
+
+/* 3. A Ação: Gira o flipper quando o mouse passa sobre o container */
+.stepCardContainer:hover .cardFlipper {
+  transform: rotateY(180deg);
+}
+
+/* 4. As Faces: Estilos comuns para a frente e o verso */
+.cardFront, .cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Para Safari */
+  backface-visibility: hidden; /* Esconde o lado que está virado para trás */
   border-radius: 12px;
   overflow: hidden;
-  color: var(--color-light-primary);
-  min-height: 520px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Alinha o conteúdo na base do card */
-  padding: 2rem;
-  background-size: cover;
-  background-position: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Efeito de Overlay para legibilidade do texto */
-.stepCard::before {
-  content: '';
+/* --- ESTILOS ESPECÍFICOS DAS FACES --- */
+
+/* Face da Frente (A que vemos primeiro) */
+.cardFront {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.frontOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.1) 100%);
-  z-index: 1;
-  transition: background 0.4s ease;
+  background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro sutil */
+  transition: background-color 0.4s ease;
 }
 
-.stepCard:hover::before {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(200, 10, 8, 0.3) 100%);
+.stepCardContainer:hover .frontOverlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay fica mais escuro no hover */
 }
 
-/* --- IMAGENS DE FUNDO ESPECÍFICAS PARA CADA CARD --- */
-/* (COLOQUE AS IMAGENS EM /public/images/) */
-.stepCard:nth-child(1) {
-  background-image: url('/images/processo-01.jpg'); /* Imagem de engenheiros com plantas */
-}
-.stepCard:nth-child(2) {
-  background-image: url('/images/processo-02.jpg'); /* Imagem de instalação de sprinklers/equipamentos */
-}
-.stepCard:nth-child(3) {
-  background-image: url('/images/processo-03.jpg'); /* Imagem de um prédio comercial moderno e seguro */
-}
-
-
-.cardContent {
-  position: relative;
-  z-index: 2;
-  text-align: left;
-}
-
-.stepNumber {
-  font-size: 4rem;
+.stepNumberIcon {
+  font-size: 5rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.15);
-  position: absolute;
-  top: -50px; /* Posiciona acima do título */
-  left: -10px;
-  z-index: -1;
+  color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-heading);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+.stepCardContainer:hover .stepNumberIcon {
+  transform: scale(1.1);
+}
+
+/* Face de Trás (A que vemos depois de girar) */
+.cardBack {
+  background-color: var(--color-dark-primary);
+  color: var(--color-light-primary);
+  transform: rotateY(180deg); /* Já começa virada para trás */
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
 }
 
 .cardContent h3 {
@@ -109,13 +133,15 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espaçamento mais compacto */
 }
 
 .subItemsList li {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin-bottom: 0.6rem;
   color: #ddd;
   font-size: 0.9rem;
 }
@@ -126,56 +152,10 @@
   flex-shrink: 0;
 }
 
-/* --- Legal Box Redesenhado --- */
-.legalInfoBox {
-  margin-top: 5rem;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  padding: 2.5rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-  text-align: left;
-  border: 1px solid #e0e0e0;
-  border-left: 5px solid var(--color-primary-red);
-}
-
-.legalIcon {
-  font-size: 2.8rem;
-  color: var(--color-primary-red);
-}
-
-.legalContent h4 {
-  font-size: 1.3rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: var(--color-dark-primary);
-}
-
-.legalContent p {
-  color: #555;
-  line-height: 1.7;
-  margin: 0;
-}
-
-.legalContent p:not(:last-child) {
-  margin-bottom: 1rem;
-}
-
 /* --- Responsividade --- */
 @media (max-width: 1024px) {
   .processGrid {
-    grid-template-columns: 1fr; /* Coluna única em tablets */
-  }
-}
-
-@media (max-width: 768px) {
-  .mainTitle {
-    font-size: 2.2rem;
-  }
-  .legalInfoBox {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 }

@@ -1,0 +1,46 @@
+.floatingContainer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1050; /* Um pouco abaixo do chatbot window */
+  display: flex;
+  flex-direction: column-reverse; /* Coloca o primeiro item (WhatsApp) no topo */
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  min-width: 60px; /* Garante o formato circular quando comprimido */
+  padding: 0 1.2rem;
+  border-radius: 30px; /* Metade da altura para bordas perfeitamente arredondadas */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Essencial para a animação do texto */
+}
+
+.actionButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.whatsappBg {
+  background-color: #25D366;
+}
+
+.buttonText {
+  white-space: nowrap; /* Impede que o texto quebre a linha durante a animação */
+}
+
+@media (max-width: 768px) {
+  .floatingContainer {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

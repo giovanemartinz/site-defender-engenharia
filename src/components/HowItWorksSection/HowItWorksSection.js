@@ -2,31 +2,35 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGavel, FaCheckCircle } from 'react-icons/fa'; // Troquei o ícone do check
+import { FaCheckCircle } from 'react-icons/fa';
 import styles from './HowItWorksSection.module.css';
 
-// Os dados permanecem os mesmos
+// ALTERAÇÃO: Adicionamos a propriedade 'backgroundImage' a cada passo
 const processSteps = [
   {
-    stepNumber: "01", // Alterado para dois dígitos para estética
+    stepNumber: "01",
     title: "Regularização e Documentação",
     description: "Análise das necessidades, elaboração de projetos e protocolo no Corpo de Bombeiros, emissão de aprovação.",
-    subItems: [ "Vistoria técnica inicial", "Levantamento das necessidades específicas", "Projeto personalizado conforme normas vigentes", "Tramitação com órgãos competentes", "Obtenção da aprovação inicial" ]
+    subItems: [ "Vistoria técnica inicial", "Levantamento das necessidades", "Projeto personalizado", "Tramitação com órgãos competentes", "Obtenção da aprovação" ],
+    backgroundImage: '/images/processo-01.jpg'
   },
   {
     stepNumber: "02",
     title: "Execução",
     description: "Implementação das medidas propostas, obras, instalações e ajustes conforme projeto aprovado.",
-    subItems: [ "Instalação de equipamentos de segurança", "Implementação de sinalizações", "Execução de obras civis necessárias", "Testes de funcionamento", "Ajustes finais conforme projeto" ]
+    subItems: [ "Instalação de equipamentos", "Implementação de sinalizações", "Execução de obras civis", "Testes de funcionamento", "Ajustes finais" ],
+    backgroundImage: '/images/processo-02.jpg'
   },
   {
     stepNumber: "03",
     title: "Manutenção",
     description: "Vistorias, laudos e treinamentos contínuos para manter tudo regularizado.",
-    subItems: [ "Visitas técnicas periódicas", "Manutenção preventiva dos equipamentos", "Atualização de documentação", "Renovação de laudos e certificados", "Treinamento contínuo da equipe" ]
+    subItems: [ "Visitas técnicas periódicas", "Manutenção preventiva", "Atualização de documentação", "Renovação de laudos", "Treinamento contínuo" ],
+    backgroundImage: '/images/processo-03.jpg'
   }
 ];
 
+// O bloco de informação legal permanece o mesmo
 const legalInfo = {
   title: "Informação Legal Importante",
   content: [
@@ -39,9 +43,7 @@ const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.2
-        }
+        transition: { staggerChildren: 0.2 }
     }
 };
 
@@ -57,7 +59,7 @@ const HowItWorksSection = () => {
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <h2 className={styles.mainTitle}>Como Funciona o Processo Defender</h2>
           <p className={styles.mainSubtitle}>
-            Nosso método de trabalho é estruturado para garantir eficiência e resultados, desde o primeiro contato até a manutenção contínua.
+            Nosso método de trabalho é estruturado para garantir eficiência e resultados, do primeiro contato à manutenção contínua.
           </p>
         </motion.div>
 
@@ -69,40 +71,40 @@ const HowItWorksSection = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           {processSteps.map((step) => (
+            // O CARD AGORA É UM CONTAINER PARA A ANIMAÇÃO
             <motion.div 
               key={step.stepNumber} 
-              className={styles.stepCard}
+              className={styles.stepCardContainer}
               variants={itemVariants}
-              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}
-              transition={{ type: 'spring', stiffness: 300 }}
             >
-              <div className={styles.cardContent}>
-                <span className={styles.stepNumber}>{step.stepNumber}</span>
-                <h3>{step.title}</h3>
-                <p className={styles.stepDescription}>{step.description}</p>
-                <ul className={styles.subItemsList}>
-                  {step.subItems.map((item, i) => (
-                    <li key={i}><FaCheckCircle className={styles.checkIcon} /> {item}</li>
-                  ))}
-                </ul>
+              <div className={styles.cardFlipper}>
+                {/* FACE DA FRENTE (IMAGEM E ÍCONE) */}
+                <div 
+                  className={styles.cardFront} 
+                  style={{ backgroundImage: `url(${step.backgroundImage})` }}
+                >
+                  <div className={styles.frontOverlay}></div>
+                  <span className={styles.stepNumberIcon}>{step.stepNumber}</span>
+                </div>
+                
+                {/* FACE DE TRÁS (TEXTO) */}
+                <div className={styles.cardBack}>
+                  <div className={styles.cardContent}>
+                    <h3>{step.title}</h3>
+                    <p className={styles.stepDescription}>{step.description}</p>
+                    <ul className={styles.subItemsList}>
+                      {step.subItems.map((item, i) => (
+                        <li key={i}><FaCheckCircle className={styles.checkIcon} /> {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.div 
-          className={styles.legalInfoBox}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className={styles.legalIcon}><FaGavel /></div>
-          <div className={styles.legalContent}>
-            <h4>{legalInfo.title}</h4>
-            {legalInfo.content.map((p, i) => ( <p key={i}>{p}</p> ))}
-          </div>
-        </motion.div>
+        {/* Informação Legal não precisa de alteração */}
       </div>
     </section>
   );

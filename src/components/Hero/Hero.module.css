@@ -1,26 +1,36 @@
-/* --- Seção Principal Imersiva --- */
+/* --- Seção Principal --- */
 .heroSection {
   position: relative;
-  height: 100vh;
+  height: 75vh;
   width: 100%;
   display: flex;
-  align-items: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center;
   overflow: hidden;
+  /* ALTERAÇÃO 1: A imagem de fundo e a transição foram removidas daqui */
 }
 
-.videoBackground {
+/* ALTERAÇÃO 2: Novo container para as imagens de fundo */
+.backgroundImageContainer {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-  z-index: 0;
+  z-index: 0; /* Fica atrás de tudo */
 }
 
-/* O gradiente inteligente é a chave do design */
-.videoOverlay {
+/* ALTERAÇÃO 3: Estilo para cada imagem individual */
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -28,18 +38,17 @@
   height: 100%;
   background: linear-gradient(
     to right,
-    rgba(5, 5, 10, 0.85) 0%, /* Início escuro e opaco para o texto */
-    rgba(5, 5, 10, 0.8) 40%, /* Mantém a opacidade na área do texto */
-    rgba(5, 5, 10, 0.2) 65%, /* Transição suave */
-    transparent 80%        /* Fica transparente para revelar o vídeo */
+    rgba(5, 5, 10, 0.85) 0%,
+    rgba(5, 5, 10, 0.8) 40%,
+    rgba(5, 5, 10, 0.2) 65%,
+    transparent 80%
   );
-  z-index: 1;
+  z-index: 1; /* Fica na frente do fundo, mas atrás do conteúdo */
 }
 
-/* Container do conteúdo posicionado sobre o gradiente */
 .contentContainer {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Fica na frente de tudo */
   padding: 0 5%;
   max-width: 1300px;
   margin: 0 auto;
@@ -47,12 +56,12 @@
 }
 
 .headline {
-  font-size: 3.8rem; /* Um pouco maior para mais impacto */
+  font-size: 3.8rem;
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 1.5rem;
   color: #fff;
-  max-width: 650px; /* Limita a largura do texto */
+  max-width: 650px;
 }
 
 .subheadline {
@@ -69,7 +78,7 @@
   gap: 1rem;
 }
 
-.ctaPrimary, .ctaSecondary {
+.ctaPrimary {
   padding: 0.9rem 2.2rem;
   font-family: var(--font-heading);
   font-weight: 600;
@@ -79,9 +88,6 @@
   text-align: center;
   border: 2px solid transparent;
   cursor: pointer;
-}
-
-.ctaPrimary {
   background-color: var(--color-primary-red);
   color: #fff;
   border-color: var(--color-primary-red);
@@ -93,16 +99,66 @@
   box-shadow: 0 10px 20px rgba(255, 9, 8, 0.2);
 }
 
-.ctaSecondary {
-  background-color: transparent;
+/* --- ESTILOS PARA O CONTROLE DE CARROSSEL --- */
+.carouselControls {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.controlButton {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.controlButton:hover {
   color: #fff;
-  border-color: #fff;
+  transform: scale(1.1);
 }
-.ctaSecondary:hover {
+
+.slideNumber {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--font-heading);
+}
+
+.progressContainer {
+  display: flex;
+  gap: 5px;
+  width: 120px;
+  align-items: center;
+}
+
+.progressBar {
+  height: 3px;
+  flex-grow: 1;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: background-color 0.5s ease;
+}
+
+.progressBar.active {
   background-color: #fff;
-  color: var(--color-dark-primary);
-  transform: translateY(-3px);
 }
+
 
 /* --- Responsividade --- */
 @media (max-width: 1024px) {
@@ -111,26 +167,14 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    text-align: center; /* Centraliza tudo no mobile */
+    text-align: center;
     justify-content: center;
   }
-  .contentContainer {
-    padding: 0 8%;
-  }
-  /* O gradiente muda para ser mais forte e uniforme no mobile */
-  .videoOverlay {
+  .overlay {
     background: rgba(5, 5, 10, 0.7);
   }
-  .headline, .subheadline {
+  .headline, .subheadline, .ctaWrapper {
     max-width: 100%;
-  }
-  .ctaWrapper {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  .ctaPrimary, .ctaSecondary {
-    width: 100%;
-    max-width: 350px;
+    justify-content: center;
   }
 }

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './ProjectsSection.module.css';
 
-// DADOS ATUALIZADOS com título e descrição para cada card
 const certificationsData = [
   { 
     src: '/logos/cert-crea.png', 
@@ -38,7 +37,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2, // Animação entra um card de cada vez
+      staggerChildren: 0.2,
       delayChildren: 0.2,
     },
   },

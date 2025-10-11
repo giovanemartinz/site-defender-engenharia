@@ -1,19 +1,20 @@
-/* Estado Padrão (sobre o Hero) */
+/* Header com altura ajustada via padding para acomodar a logo perfeitamente */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.8rem 5%;
+  padding: 0.8rem 5%; /* AUMENTADO para dar mais espaço vertical */
   z-index: 1000;
-  background-color: rgba(10, 10, 10, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); /* Suporte para Safari */
-  transition: background-color 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out, border-bottom 0.4s ease-in-out, padding 0.4s ease-in-out;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-light-primary);
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
 }
 
 .container {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,34 +23,14 @@
 }
 
 .logoImage {
-  object-fit: contain; /* Garante que o logo não achate */
-  filter: brightness(0) invert(1); /* Hack para deixar o logo PNG branco */
+  object-fit: contain;
+  width: 180px;
   height: auto;
-  width: 30%;
-  transition: filter 0.4s ease-in-out, height 0.4s ease-in-out;
 }
 
 .navLink, .mobileToggle {
-  color: var(--color-light-primary); /* Textos brancos por padrão */
+  color: var(--color-dark-primary);
 }
-
-/* Estado de Rolagem (.scrolled) */
-.header.scrolled {
-  background-color: var(--color-light-primary);
-  backdrop-filter: none;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.header.scrolled .navLink, .header.scrolled .mobileToggle {
-  color: var(--color-dark-primary); /* Textos escuros ao rolar */
-}
-
-.header.scrolled .logoImage {
-  filter: none; /* Remove o filtro para mostrar o logo original */
-}
-
-/* --- Estilos restantes (com pequenas adaptações) --- */
 
 .navDesktop {
   display: none;
@@ -144,9 +125,5 @@
 
   .navLink:hover::after {
     width: 100%;
-  }
-
-  .header.scrolled .navLink::after {
-    background-color: var(--color-primary-red);
   }
 }

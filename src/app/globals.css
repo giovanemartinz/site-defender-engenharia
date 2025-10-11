@@ -13,9 +13,9 @@
   --color-dark-primary: #1e1e1e;
   --color-dark-secondary: #000000;
   --color-light-primary: #FFFFFF;
-  --color-light-secondary: #F5F7FA; /* Um cinza claro neutro ainda é útil */
+  --color-light-secondary: #F5F7FA;
 
-  /* Tipografia (Sugestão do Prompt) */
+  /* Tipografia */
   --font-body: 'Open Sans', sans-serif;
   --font-heading: 'Montserrat', sans-serif;
 }
@@ -24,6 +24,15 @@ body {
   color: var(--color-dark-primary);
   background: var(--color-light-primary);
   font-family: var(--font-body);
+}
+
+/* 
+  ================================================================
+  => REGRA ATUALIZADA PARA CORRIGIR O CORTE DO HEADER
+  ================================================================
+*/
+main {
+  padding-top: 80px; /* Aumentado para corresponder à nova altura do header */
 }
 
 h1, h2, h3, h4, h5, h6 {
