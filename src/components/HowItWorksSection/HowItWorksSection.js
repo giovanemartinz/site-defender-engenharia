@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa'; // Importado ícone de aviso
+import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import styles from './HowItWorksSection.module.css';
 
-// ALTERAÇÃO: Adicionamos a propriedade 'backgroundImage' a cada passo
 const processSteps = [
   {
     stepNumber: "01",
@@ -30,7 +29,6 @@ const processSteps = [
   }
 ];
 
-// O bloco de informação legal foi movido para cá
 const legalInfo = {
   title: "Informação Legal Importante",
   content: [
@@ -43,7 +41,9 @@ const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.2 }
+        transition: { 
+          staggerChildren: 0.2
+        }
     }
 };
 
@@ -65,20 +65,35 @@ const HowItWorksSection = () => {
 
         <motion.div 
           className={styles.processGrid}
-          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          // A propriedade 'once' foi removida para que a animação ocorra toda vez
+          viewport={{ amount: 0.3 }} 
+          variants={containerVariants}
         >
-          {processSteps.map((step) => (
-            // O CARD AGORA É UM CONTAINER PARA A ANIMAÇÃO
+          {processSteps.map((step, index) => (
             <motion.div 
               key={step.stepNumber} 
               className={styles.stepCardContainer}
               variants={itemVariants}
             >
-              <div className={styles.cardFlipper}>
-                {/* FACE DA FRENTE (IMAGEM E ÍCONE) */}
+              <motion.div
+                className={styles.cardFlipper}
+                // O whileHover foi removido
+                variants={{
+                  hidden: { rotateY: 0 },
+                  visible: {
+                    rotateY: [0, 180, 180, 0],
+                    transition: {
+                      duration: 4,
+                      ease: "easeInOut",
+                      times: [0, 0.2, 0.8, 1],
+                      delay: 0.5 + index * 0.2
+                    }
+                  }
+                }}
+              >
+                {/* FACE DA FRENTE */}
                 <div 
                   className={styles.cardFront} 
                   style={{ backgroundImage: `url(${step.backgroundImage})` }}
@@ -87,7 +102,7 @@ const HowItWorksSection = () => {
                   <span className={styles.stepNumberIcon}>{step.stepNumber}</span>
                 </div>
                 
-                {/* FACE DE TRÁS (TEXTO) */}
+                {/* FACE DE TRÁS */}
                 <div className={styles.cardBack}>
                   <div className={styles.cardContent}>
                     <h3>{step.title}</h3>
@@ -99,12 +114,11 @@ const HowItWorksSection = () => {
                     </ul>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* --- NOVO BLOCO DE INFORMAÇÃO LEGAL --- */}
         <motion.div
           className={styles.legalInfoBox}
           initial={{ opacity: 0, y: 50 }}
@@ -120,7 +134,6 @@ const HowItWorksSection = () => {
             <p key={index} className={styles.legalText}>{paragraph}</p>
           ))}
         </motion.div>
-
       </div>
     </section>
   );

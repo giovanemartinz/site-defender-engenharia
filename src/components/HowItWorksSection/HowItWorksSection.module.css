@@ -38,19 +38,16 @@
   perspective: 1500px; /* A "profundidade" da cena 3D */
 }
 
-/* 2. O Flipper: O elemento que realmente vai girar */
+/* 2. O Flipper: O elemento que realmente vai girar (agora controlado por framer-motion) */
 .cardFlipper {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s; /* Duração da animação de giro */
   transform-style: preserve-3d;
 }
 
-/* 3. A Ação: Gira o flipper quando o mouse passa sobre o container */
-.stepCardContainer:hover .cardFlipper {
-  transform: rotateY(180deg);
-}
+/* 3. A Ação de Hover foi REMOVIDA daqui e passada para o framer-motion */
+/* .stepCardContainer:hover .cardFlipper { ... } */
 
 /* 4. As Faces: Estilos comuns para a frente e o verso */
 .cardFront, .cardBack {
@@ -152,7 +149,7 @@
   flex-shrink: 0;
 }
 
-/* --- NOVO BLOCO DE INFORMAÇÃO LEGAL --- */
+/* --- BLOCO DE INFORMAÇÃO LEGAL --- */
 .legalInfoBox {
   margin-top: 5rem;
   background-color: var(--color-light-secondary);
