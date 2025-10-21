@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa'; // Importado ícone de aviso
 import styles from './HowItWorksSection.module.css';
 
 // ALTERAÇÃO: Adicionamos a propriedade 'backgroundImage' a cada passo
@@ -30,7 +30,7 @@ const processSteps = [
   }
 ];
 
-// O bloco de informação legal permanece o mesmo
+// O bloco de informação legal foi movido para cá
 const legalInfo = {
   title: "Informação Legal Importante",
   content: [
@@ -104,7 +104,23 @@ const HowItWorksSection = () => {
           ))}
         </motion.div>
 
-        {/* Informação Legal não precisa de alteração */}
+        {/* --- NOVO BLOCO DE INFORMAÇÃO LEGAL --- */}
+        <motion.div
+          className={styles.legalInfoBox}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h3 className={styles.legalTitle}>
+            <FaExclamationTriangle />
+            {legalInfo.title}
+          </h3>
+          {legalInfo.content.map((paragraph, index) => (
+            <p key={index} className={styles.legalText}>{paragraph}</p>
+          ))}
+        </motion.div>
+
       </div>
     </section>
   );

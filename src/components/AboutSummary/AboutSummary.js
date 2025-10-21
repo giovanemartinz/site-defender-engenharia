@@ -1,76 +1,111 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './AboutSummary.module.css';
-import { FaBullseye, FaEye, FaGem } from 'react-icons/fa';
+import { FaBullseye, FaTasks, FaGem } from 'react-icons/fa';
 
 const aboutData = {
-  title: "Quem Somos",
-  content: "A Defender Engenharia é uma empresa especializada em projetos, instalações e manutenção de sistemas de prevenção e combate a incêndios. Atuamos com foco em segurança, inovação e conformidade com as normas técnicas e legais.",
-  mission: "Garantir a segurança de pessoas e patrimônios por meio de soluções eficazes em prevenção e combate a incêndio.",
-  vision: "Ser referência nacional em engenharia de segurança contra incêndio, reconhecida pela excelência técnica e compromisso com a vida.",
-  values: [ "Compromisso com a segurança", "Excelência técnica", "Ética e transparência", "Inovação constante" ]
+  about: {
+    title: "Sobre a Defender Engenharia",
+    items: [
+      { 
+        icon: <FaBullseye />, 
+        title: "Nossa Missão", 
+        text: "Prestar serviços de engenharia com alto padrão, atendendo as exigências do PPCI, com foco em qualidade, custo justo, segurança de vidas e patrimônio." 
+      },
+      { 
+        icon: <FaTasks />, 
+        title: "Nossa Experiência", 
+        text: "Acumulamos anos de experiência em projetos de PPCI para diversos setores, regularizando empresas, condomínios, edifícios comerciais e industriais. Nossa equipe tem sólida formação técnica e está em constante atualização sobre normas e legislações." 
+      },
+      { 
+        icon: <FaGem />, 
+        title: "Nossos Valores", 
+        list: [
+          "Ética e transparência em todas as nossas ações",
+          "Compromisso com resultados efetivos",
+          "Respeito à vida e segurança acima de tudo",
+          "Capacitação constante da nossa equipe",
+          "Relacionamento honesto com nossos clientes"
+        ] 
+      }
+    ]
+  },
+  ppci: {
+    title: "Por que o PPCI é importante?",
+    image: "/images/PPCI.png",
+    paragraphs: [
+      "O Plano de Prevenção e Proteção Contra Incêndio (PPCI) não é apenas uma obrigação legal, mas uma ferramenta essencial para a segurança das pessoas e do patrimônio.",
+      "No Rio Grande do Sul, a Lei Complementar 14.376/2013 (Lei Kiss) tornou obrigatória a regularização de edifícios, estabelecendo severas penalidades para responsáveis legais que não mantenham suas edificações em conformidade."
+    ],
+    commitment: {
+      title: "Compromisso Defender",
+      text: "Nossa equipe está comprometida não apenas com a regularização documental, mas principalmente com a segurança efetiva de cada projeto que realizamos. Trabalhamos para que você tenha tranquilidade e proteção real, não apenas documentos para cumprir exigências."
+    }
+  }
 };
 
 const AboutSummary = () => {
   return (
-    <section className={styles.aboutSection}>
+    <section id="sobre" className={styles.aboutSection}>
       <div className={styles.container}>
-        {/* O vídeo agora é o fundo */}
-        <video
-          className={styles.backgroundVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-          key="about-video-fullscreen"
-        >
-          <source src="/sobre2.mp4" type="video/mp4" />
-          Seu navegador não suporta vídeos.
-        </video>
-        <div className={styles.overlay} />
-
-        {/* Card de conteúdo sobreposto */}
-        <motion.div
-          className={styles.contentCard}
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <h2 className={styles.title}>{aboutData.title}</h2>
-          <p className={styles.content}>{aboutData.content}</p>
-
-          <div className={styles.coreValues}>
-            {/* Missão */}
-            <motion.div className={styles.valueItem} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
-              <div className={styles.valueIcon}><FaBullseye /></div>
-              <div>
-                <h4>Missão</h4>
-                <p>{aboutData.mission}</p>
+        <div className={styles.grid}>
+          {/* Coluna da Esquerda: Sobre a Defender */}
+          <motion.div 
+            className={styles.aboutContent}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <h2 className={styles.mainTitle}>{aboutData.about.title}</h2>
+            
+            {aboutData.about.items.map((item, index) => (
+              <div key={index} className={styles.infoBlock}>
+                <div className={styles.infoIcon}>{item.icon}</div>
+                <div>
+                  <h3 className={styles.infoTitle}>{item.title}</h3>
+                  {item.text && <p className={styles.infoText}>{item.text}</p>}
+                  {item.list && (
+                    <ul className={styles.valuesList}>
+                      {item.list.map((value, i) => <li key={i}>{value}</li>)}
+                    </ul>
+                  )}
+                </div>
               </div>
-            </motion.div>
+            ))}
+          </motion.div>
 
-            {/* Visão */}
-            <motion.div className={styles.valueItem} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.4 }}>
-              <div className={styles.valueIcon}><FaEye /></div>
-              <div>
-                <h4>Visão</h4>
-                <p>{aboutData.vision}</p>
+          {/* Coluna da Direita: Importância do PPCI */}
+          <motion.div 
+            className={styles.ppciContent}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <div className={styles.ppciCard}>
+              <h3 className={styles.ppciTitle}>{aboutData.ppci.title}</h3>
+              <div className={styles.imageWrapper}>
+                <Image 
+                  src={aboutData.ppci.image} 
+                  alt="Extintores de incêndio" 
+                  width={500} 
+                  height={250} 
+                  className={styles.ppciImage}
+                />
               </div>
-            </motion.div>
-
-            {/* Valores */}
-            <motion.div className={styles.valueItem} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.6 }}>
-              <div className={styles.valueIcon}><FaGem /></div>
-              <div>
-                <h4>Valores</h4>
-                <p>{aboutData.values.join(' • ')}</p>
+              {aboutData.ppci.paragraphs.map((p, i) => <p key={i} className={styles.ppciText}>{p}</p>)}
+              
+              <div className={styles.commitmentBox}>
+                <h4>{aboutData.ppci.commitment.title}</h4>
+                <p>{aboutData.ppci.commitment.text}</p>
               </div>
-            </motion.div>
-          </div>
-        </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,15 +1,7 @@
 .footer {
-  width: 100%;
-}
-
-/* --- PAINEL PRINCIPAL ESCURO --- */
-.mainContent {
   background-color: var(--color-dark-primary);
   color: var(--color-light-primary);
-  padding: 5rem 5% 4rem 5%;
-  /* ALTERAÇÃO 1: Arredondamento removido. */
-  /* border-radius: 24px 24px 0 0; */
-  margin: 0 auto;
+  padding: 5rem 5% 0 5%; /* Removido padding inferior para a barra de baixo */
 }
 
 .container {
@@ -19,11 +11,12 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
   gap: 3rem;
+  padding-bottom: 4rem;
 }
 
-/* Coluna 1: Logo e Endereço */
+/* --- Coluna 1: Info --- */
 .infoColumn {
   display: flex;
   flex-direction: column;
@@ -33,131 +26,122 @@
 
 .logoWrapper {
   display: inline-block;
+  margin-bottom: 0.5rem;
 }
 
 .logoImage {
   object-fit: contain;
-  /* ALTERAÇÃO 2: Largura da logo aumentada para dar mais destaque. */
-  width: 220px; 
-  height: auto; /* A altura se ajustará automaticamente */
 }
 
-.address {
-  font-size: 1rem;
+.description {
+  color: #ccc;
   line-height: 1.6;
-  color: #ccc;
-  max-width: 280px;
 }
 
-.linkWithArrow {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-weight: 600;
-  color: #fff;
-  transition: opacity 0.3s ease;
-}
-.linkWithArrow:hover {
-  opacity: 0.8;
-}
-
-.arrowIcon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #fff;
-  color: var(--color-dark-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Coluna 2: Contato */
-.contactColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.contactTitle {
-  color: #888;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.phoneNumber {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #fff;
-}
-
-.emailLink {
-  color: #ccc;
-  transition: color 0.3s ease;
-}
-.emailLink:hover {
-  color: #fff;
-}
-
-/* Coluna 3: Social */
-.socialColumn .socialIcons {
+.socialIcons {
   display: flex;
   gap: 1.5rem;
 }
-
 .socialIcons a {
   color: #ccc;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   transition: color 0.3s ease, transform 0.3s ease;
 }
-
 .socialIcons a:hover {
   color: #fff;
   transform: translateY(-3px);
 }
 
-/* --- BARRA INFERIOR CLARA --- */
+/* --- Colunas 2 e 3: Links --- */
+.linksColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #444;
+  font-family: var(--font-heading);
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.navList li a {
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+.navList li a:hover {
+  color: #fff;
+  padding-left: 5px;
+}
+
+/* --- Coluna 4: Contato --- */
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: #ccc;
+}
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.contactList li svg {
+  margin-top: 5px;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.contactList a {
+  transition: color 0.3s ease;
+}
+.contactList a:hover {
+  color: #fff;
+}
+
+
+/* --- Barra Inferior --- */
 .footerBottom {
-  background-color: var(--color-light-secondary);
   padding: 1.5rem 5%;
-  color: #555;
+  border-top: 1px solid #444;
+  background-color: var(--color-dark-primary); /* Garante a mesma cor */
 }
 
 .bottomContent {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-}
-
-.copyright {
   font-size: 0.9rem;
+  color: #aaa;
 }
-
-.credits {
-  font-size: 0.9rem;
-}
-
-.credits a {
-  color: var(--color-dark-primary);
+.bottomContent a {
+  color: #fff;
   font-weight: 600;
-  text-decoration: none;
   transition: color 0.3s ease;
 }
-
-.credits a:hover {
+.bottomContent a:hover {
   color: var(--color-primary-red);
 }
 
+
 /* --- Responsividade --- */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .infoColumn {
-    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

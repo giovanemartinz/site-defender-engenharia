@@ -1,18 +1,16 @@
 .servicesSection {
-  padding: 1.2rem 0;
-  background: #f0f2f5;
-  overflow: hidden;
+  padding: 6rem 5%;
+  background: var(--color-light-primary);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 0 5%;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 1rem;
 }
 
@@ -20,43 +18,32 @@
   font-size: 1.1rem;
   color: #555;
   margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* --- Carrossel de Categorias (sem alterações) --- */
-.categoryScroller {
-  width: 100%;
-  overflow: hidden;
-  -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
-  mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+/* --- Abas de Categoria --- */
+.categoryTabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 3rem;
 }
 
-.categorySlider {
-  display: flex;
-  width: calc(280px * 10);
-  animation: scroll 40s linear infinite;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-280px * 5)); }
-}
-
-.categoryScroller:hover .categorySlider {
-  animation-play-state: paused;
-}
-
 .categoryButton {
-  flex-shrink: 0;
-  width: 260px;
-  margin: 0 10px;
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: var(--font-heading);
   border: 2px solid #ddd;
-  border-radius: 8px;
+  border-radius: 50px;
   background-color: #fff;
+  color: #333;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -70,80 +57,94 @@
   background-color: var(--color-primary-red);
   border-color: var(--color-primary-red);
   color: #fff;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 9, 8, 0.2);
 }
 
-/* --- Grid de Serviços (ESTRUTURA DE COLUNAS REFEITA) --- */
+/* --- Área de Conteúdo --- */
+.contentDisplay {
+  width: 100%;
+}
+
+/* --- Grid de Serviços --- */
 .serviceGrid {
   display: grid;
-  /* COMEÇA COM 3 COLUNAS EM TELAS LARGAS */
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
 .serviceCard {
-  background: #fff;
+  background: var(--color-light-secondary);
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  border: 1px solid transparent;
-  color: var(--color-dark-primary);
+  padding: 2rem;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1.5rem;
-  aspect-ratio: 1 / 1;
+  justify-content: space-between;
+  min-height: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .serviceCard:hover {
-  border-color: var(--color-primary-red);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
 }
 
-.serviceCardIcon {
-  font-size: 2.5rem; /* Ícone um pouco menor para dar espaço ao texto */
-  color: var(--color-primary-red);
-  margin-bottom: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.serviceCard:hover .serviceCardIcon {
-  transform: scale(1.1);
-}
-
-.serviceText {
+.serviceTitle {
+  font-size: 1.4rem;
   line-height: 1.4;
-  font-weight: 600;
-  font-size: 1rem;
-  margin: 0;
+  font-weight: 700;
+  color: var(--color-dark-primary);
+  position: relative;
+  padding-left: 1rem;
 }
 
-/* --- RESPONSIVIDADE DO GRID --- */
+.serviceTitle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-primary-red);
+  border-radius: 50%;
+}
 
-/* Para tablets e telas menores */
+.consultLink {
+  margin-top: 1.5rem;
+  color: var(--color-primary-red);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.3s ease;
+}
+
+.serviceCard:hover .consultLink {
+  gap: 0.8rem;
+}
+
+
+/* --- Responsividade --- */
 @media (max-width: 992px) {
   .serviceGrid {
-    /* PASSA PARA 2 COLUNAS */
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Para celulares */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 3%;
-  }
   .serviceGrid {
-    /* Continua com 2 colunas, mas o card se ajusta */
-    gap: 1rem;
+    grid-template-columns: 1fr;
   }
-  .serviceCard {
-    padding: 1.5rem 1rem;
-    aspect-ratio: auto; /* Remove o aspect-ratio para o texto não ser cortado */
-    min-height: 180px; /* Garante uma altura mínima */
+  .title {
+    font-size: 2.2rem;
   }
-  .serviceText {
+  .categoryTabs {
+    gap: 0.5rem;
+  }
+  .categoryButton {
+    padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
 }

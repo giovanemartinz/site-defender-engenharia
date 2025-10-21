@@ -1,133 +1,132 @@
 .aboutSection {
-  padding: 0;
-  position: relative;
-  width: 100%;
-  height: auto;
+  padding: 6rem 5%;
+  background-color: var(--color-light-primary);
 }
 
 .container {
-  max-width: 100%;
-  margin: 0;
-  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+/* --- Coluna da Esquerda: Sobre --- */
+.aboutContent {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  /* ALTERAÇÃO 1: Padding vertical drasticamente reduzido para a seção toda */
-  padding: 5rem 5%;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-.backgroundVideo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 70%);
-  z-index: -1;
-}
-
-/* Card de Conteúdo Sobreposto */
-.contentCard {
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  /* ALTERAÇÃO 2: Padding interno do card reduzido */
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 100%;
-  max-width: 550px;
-  z-index: 1;
-}
-
-.title {
-  font-size: 2.2rem; /* Título levemente menor */
-  /* ALTERAÇÃO 3: Margem inferior reduzida */
-  margin-bottom: 0.75rem;
+.mainTitle {
+  font-size: 2.8rem;
   color: var(--color-dark-primary);
+  margin-bottom: 0;
+  border-left: 4px solid var(--color-primary-red);
+  padding-left: 1rem;
 }
 
-.content {
-  font-size: 1rem; /* Conteúdo levemente menor */
-  line-height: 1.6;
-  color: #333;
-  /* ALTERAÇÃO 4: Margem inferior reduzida */
+.infoBlock {
+  display: flex;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.infoIcon {
+  font-size: 1.8rem;
+  color: var(--color-primary-red);
+  margin-top: 5px;
+}
+
+.infoTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.infoText {
+  line-height: 1.7;
+  color: #555;
+}
+
+.valuesList {
+  list-style-type: '• ';
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #555;
+}
+
+/* --- Coluna da Direita: PPCI --- */
+.ppciCard {
+  background-color: var(--color-light-secondary);
+  padding: 2.5rem;
+  border-radius: 12px;
+  height: 100%;
+}
+
+.ppciTitle {
+  font-size: 1.8rem;
+  text-align: center;
   margin-bottom: 1.5rem;
 }
 
-.coreValues {
-  display: flex;
-  flex-direction: column;
-  /* ALTERAÇÃO 5: Espaçamento entre Missão/Visão/Valores reduzido */
-  gap: 1rem;
+.imageWrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
-.valueItem {
-  display: flex;
-  align-items: flex-start;
-  /* ALTERAÇÃO 6: Espaçamento entre ícone e texto reduzido */
-  gap: 1rem;
+.ppciImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.valueIcon {
-  flex-shrink: 0;
-  /* ALTERAÇÃO 7: Ícone e sua fonte interna diminuídos */
-  width: 45px;
-  height: 45px;
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: #fff5f5;
-  color: var(--color-primary-red);
-}
-
-.valueItem h4 {
-  font-size: 1.1rem;
-  margin-top: 0;
-  margin-bottom: 0.25rem;
-  color: var(--color-dark-primary);
-}
-
-.valueItem p {
-  margin: 0;
+.ppciText {
+  line-height: 1.7;
   color: #555;
-  line-height: 1.5;
-  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
+
+.commitmentBox {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  padding-left: 1.2rem;
+  border-left: 4px solid var(--color-primary-red);
+  background-color: rgba(255, 9, 8, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+.commitmentBox h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.commitmentBox p {
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
 
 /* Responsividade */
 @media (max-width: 992px) {
-  .container {
-    justify-content: center;
-    padding: 3rem 5%; /* Padding ajustado também na versão responsiva */
-  }
-  .overlay {
-    background: rgba(0,0,0,0.5);
-  }
-  .contentCard {
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
   }
 }
 
 @media (max-width: 768px) {
-  .contentCard {
-    padding: 1.5rem;
+  .mainTitle {
+    font-size: 2.2rem;
   }
-  .title {
-    font-size: 2rem;
+  .ppciCard {
+    padding: 2rem;
   }
 }
