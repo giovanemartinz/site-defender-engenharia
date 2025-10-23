@@ -34,7 +34,7 @@ const footerData = {
   contact: {
     phone: "(51) 92000-7893",
     email: "comercial@defender.eng.br",
-    address: "Rua Liane Alves, 60, Porto Alegre/RS",
+    address: "Av. Guido Mondim, 884 - São Geraldo, Porto Alegre - RS, 90230-260",
     cep: "CEP: 91.751-170"
   }
 };

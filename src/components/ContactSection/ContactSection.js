@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import styles from './ContactSection.module.css';
 
-// O JSON de dados permanece o mesmo
 const formData = {
   formulario_orcamento: {
     titulo: "Solicite um Orçamento Detalhado",
@@ -34,7 +33,6 @@ const FieldRenderer = ({ field }) => {
   const isRequired = field.obrigatorio;
   const label = `${field.label}${isRequired ? '*' : ''}`;
 
-  // Novo grid de 12 colunas para máxima compactação
   const getFieldClassName = () => {
     switch (field.nome) {
       case 'nome_completo': return styles.gridSpan4;
@@ -120,7 +118,7 @@ const ContactSection = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} // Curva de ease suave
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Formulário (Área Principal) */}
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -164,6 +162,20 @@ const ContactSection = () => {
                  </div>
                </li>
              </ul>
+
+             {/* MAPA DO GOOGLE MAPS ADICIONADO AQUI */}
+             <div className={styles.mapWrapper}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.8993296652566!2d-51.1968331!3d-30.011046899999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951979c1c4b322c3%3A0x40d2a220ccd96669!2sAv.%20Guido%20Mondim%2C%20884%20-%20S%C3%A3o%20Geraldo%2C%20Porto%20Alegre%20-%20RS%2C%2090230-260!5e0!3m2!1sen!2sbr!4v1761244950182!5m2!1sen!2sbr"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+             </div>
+
              <div className={styles.sidebarFooter}>
                 <p>Equipe Defender</p>
              </div>

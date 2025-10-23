@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  overflow: hidden; /* Evita qualquer barra de rolagem indesejada */
+  overflow: hidden;
 }
 
 .container {
@@ -19,8 +19,8 @@
 /* --- Painel Central --- */
 .mainPanel {
   display: grid;
-  grid-template-columns: 2.5fr 1fr; /* Formulário ocupa 2.5 partes, sidebar 1 parte */
-  background: #222; /* Um tom de escuro mais suave que o fundo */
+  grid-template-columns: 2.5fr 1fr;
+  background: #222;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
@@ -91,10 +91,9 @@
 
 .optionsGroup { display: flex; gap: 1.5rem; }
 
-/* O SEGREDO PARA COMPACTAR */
 .optionsGroupCheckbox {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas para os checkboxes */
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
 }
 
@@ -146,23 +145,33 @@
   padding-bottom: 1rem;
 }
 
-.contactList { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+.contactList { list-style: none; padding: 0; margin: 0; }
 .contactList li { display: flex; gap: 1rem; margin-bottom: 2rem; }
 .icon { font-size: 1.2rem; color: var(--color-primary-red); margin-top: 4px; }
 .contactList span { display: block; font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 0.2rem; }
 .contactList a, .contactList p { font-size: 1rem; color: #eee; margin: 0; }
+
+/* --- NOVOS ESTILOS PARA O MAPA --- */
+.mapWrapper {
+  width: 100%;
+  height: 220px; /* Altura do mapa */
+  border-radius: 8px;
+  overflow: hidden; /* Garante que o iframe respeite o border-radius */
+  flex-grow: 1; /* Faz o mapa preencher o espaço disponível */
+}
 
 .sidebarFooter {
   text-align: center;
   color: #666;
   font-style: italic;
   margin-top: 2rem;
+  flex-shrink: 0; /* Impede que o rodapé encolha */
 }
 
 /* --- Responsividade --- */
 @media (max-width: 1200px) {
   .mainPanel {
-    grid-template-columns: 1fr; /* Coluna única */
+    grid-template-columns: 1fr;
   }
   .contactSection {
     min-height: auto;
