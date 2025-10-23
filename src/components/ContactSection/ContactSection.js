@@ -25,7 +25,7 @@ const formData = {
   informacoes_contato: {
     telefone: "(51) 92000-7893",
     email: "comercial@defender.eng.br",
-    endereco: "Rua Liane Alves, 60, Porto Alegre/RS"
+    endereco: "Av. Guido Mondim, 884 - São Geraldo, Porto Alegre - RS, 90230-260"
   }
 };
 

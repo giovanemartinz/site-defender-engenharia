@@ -9,26 +9,27 @@ import styles from './Footer.module.css';
 const footerData = {
   info: {
     description: "Especialistas em PPCI, laudos técnicos e segurança contra incêndio, atendendo Porto Alegre e região com qualidade e compromisso.",
+    // LINKS DAS REDES SOCIAIS ATUALIZADOS
     social: [
-      { name: "Instagram", icon: <FaInstagram />, url: "#" },
-      { name: "LinkedIn", icon: <FaLinkedin />, url: "#" },
-      { name: "Facebook", icon: <FaFacebook />, url: "#" }
+      { name: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/defenderengenharia" },
+      { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/company/defenderengenharia" },
+      { name: "Facebook", icon: <FaFacebook />, url: "https://www.facebook.com/defenderengenharia/" }
     ]
   },
   navigation: [
     { label: "Início", targetId: "hero" },
     { label: "Sobre Nós", targetId: "sobre" },
     { label: "Serviços", targetId: "servicos" },
+    { label: "Treinamentos", targetId: "https://treinamentos.defender.eng.br", external: true },
     { label: "Como Funciona", targetId: "processo" },
-     { label: "Treinamentos", targetId: "https://treinamentos.defender.eng.br", external: true },
-    { label: "FAQ", targetId: "faq" }, // Assumindo que o ID da seção FAQ será "faq"
+    { label: "FAQ", targetId: "faq" },
     { label: "Contato", targetId: "contato" }
   ],
   services: [
     "PPCI / APPCI",
     "Laudos Técnicos (LTIP)",
     "Instalações",
-    "Treinamentos",
+    "Plataforma de Treinamentos",
     "Manutenção"
   ],
   contact: {
@@ -79,10 +80,16 @@ const Footer = () => {
             <h3 className={styles.columnTitle}>Navegação Rápida</h3>
             <ul className={styles.navList}>
               {footerData.navigation.map(link => (
-                <li key={link.targetId}>
-                  <a href={`#${link.targetId}`} onClick={(e) => handleScrollToSection(e, link.targetId)}>
-                    <FaChevronRight /> {link.label}
-                  </a>
+                <li key={link.label}>
+                  {link.external ? (
+                    <a href={link.targetId} target="_blank" rel="noopener noreferrer">
+                      <FaChevronRight /> {link.label}
+                    </a>
+                  ) : (
+                    <a href={`#${link.targetId}`} onClick={(e) => handleScrollToSection(e, link.targetId)}>
+                      <FaChevronRight /> {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -94,9 +101,15 @@ const Footer = () => {
             <ul className={styles.navList}>
               {footerData.services.map(service => (
                 <li key={service}>
-                  <a href={generateWhatsAppLink(service)} target="_blank" rel="noopener noreferrer">
-                    <FaChevronRight /> {service}
-                  </a>
+                  {service.includes("Plataforma") ? (
+                    <a href="https://treinamentos.defender.eng.br" target="_blank" rel="noopener noreferrer">
+                       <FaChevronRight /> {service}
+                    </a>
+                  ) : (
+                    <a href={generateWhatsAppLink(service)} target="_blank" rel="noopener noreferrer">
+                      <FaChevronRight /> {service}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
