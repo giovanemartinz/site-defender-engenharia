@@ -17,6 +17,8 @@
 
 /* --- Coluna da Esquerda: Sobre --- */
 .aboutContent {
+  /* ATUALIZADO: Posicionamento explícito no grid */
+  grid-column: 1 / 2;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
@@ -61,8 +63,10 @@
   color: #555;
 }
 
-/* --- ESTILOS PARA O NOVO CARD DE CTA --- */
+/* --- ESTILOS PARA O CARD DE CTA --- */
 .ctaCard {
+  /* ATUALIZADO: Posicionamento explícito no grid */
+  grid-column: 1 / 2; 
   margin-top: 1.5rem;
   background-color: var(--color-dark-primary);
   background-image: radial-gradient(circle at top left, rgba(255, 9, 8, 0.15), transparent 50%);
@@ -112,8 +116,14 @@
   box-shadow: 0 10px 20px rgba(255, 9, 8, 0.25);
 }
 
-
 /* --- Coluna da Direita: PPCI --- */
+.ppciContent {
+  /* ATUALIZADO: Posicionamento explícito no grid */
+  grid-column: 2 / 3;
+  /* Faz a coluna ocupar o espaço das duas linhas da primeira coluna */
+  grid-row: 1 / 3; 
+}
+
 .ppciCard {
   background-color: var(--color-light-secondary);
   padding: 2.5rem;
@@ -172,6 +182,12 @@
     grid-template-columns: 1fr;
     gap: 4rem;
   }
+  
+  /* Reseta as posições explícitas do grid para o fluxo natural */
+  .aboutContent, .ppciContent, .ctaCard {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 
 @media (max-width: 768px) {
@@ -183,6 +199,8 @@
   }
   .ctaCard {
     padding: 2rem;
+    align-items: center; /* Centraliza o conteúdo do card no mobile */
+    text-align: center;
   }
   .ctaCard h3 {
     font-size: 1.5rem;

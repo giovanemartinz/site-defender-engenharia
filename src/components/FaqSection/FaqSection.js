@@ -71,16 +71,8 @@ const FaqItem = ({ item, isOpen, onClick }) => {
 const FaqSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleScrollToContact = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contato');
-    if (contactSection) {
-      window.scrollTo({
-        top: contactSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
+  // Link do WhatsApp com mensagem contextual
+  const whatsappUrl = "https://wa.me/5551920007893?text=" + encodeURIComponent("Olá! Tenho uma dúvida que não encontrei no FAQ e gostaria de falar com um especialista.");
 
   return (
     <section className={styles.faqSection}>
@@ -103,10 +95,21 @@ const FaqSection = () => {
           <h3>{faqData.cta.title}</h3>
           <p>{faqData.cta.text}</p>
           <div className={styles.buttonGroup}>
-            <a href="#contato" onClick={handleScrollToContact} className={styles.ctaPrimary}>
+            {/* BOTÕES ATUALIZADOS */}
+            <a 
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaPrimary}
+            >
               {faqData.cta.buttons[0].text}
             </a>
-            <a href="#contato" onClick={handleScrollToContact} className={styles.ctaSecondary}>
+            <a 
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaSecondary}
+            >
               {faqData.cta.buttons[1].text}
             </a>
           </div>

@@ -48,22 +48,13 @@ const aboutData = {
 };
 
 const AboutSummary = () => {
-  const handleScrollToContact = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contato');
-    if (contactSection) {
-      window.scrollTo({
-        top: contactSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
+  const whatsappUrl = "https://wa.me/5551920007893?text=" + encodeURIComponent("Olá! Vim pela seção 'Sobre' e gostaria de solicitar um orçamento.");
 
   return (
     <section id="sobre" className={styles.aboutSection}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Coluna da Esquerda: Sobre a Defender */}
+          {/* Coluna da Esquerda (SEM o card de CTA) */}
           <motion.div 
             className={styles.aboutContent}
             initial={{ opacity: 0, x: -50 }}
@@ -87,22 +78,6 @@ const AboutSummary = () => {
                 </div>
               </div>
             ))}
-
-            {/* NOVO CARD DE CTA ADICIONADO AQUI */}
-            <motion.div
-              className={styles.ctaCard}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.8 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <h3>Sua Segurança é Nossa Prioridade</h3>
-              <p>Fale com nossos engenheiros e receba uma proposta detalhada para o seu projeto.</p>
-              <a href="#contato" onClick={handleScrollToContact} className={styles.ctaCardButton}>
-                Solicitar Orçamento <FaArrowRight />
-              </a>
-            </motion.div>
-
           </motion.div>
 
           {/* Coluna da Direita: Importância do PPCI */}
@@ -132,6 +107,27 @@ const AboutSummary = () => {
               </div>
             </div>
           </motion.div>
+          
+          {/* Card de CTA agora é um item direto do grid */}
+          <motion.div
+            className={styles.ctaCard}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <h3>Sua Segurança é Nossa Prioridade</h3>
+            <p>Fale com nossos engenheiros e receba uma proposta detalhada para o seu projeto.</p>
+            <a 
+              href={whatsappUrl} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaCardButton}
+            >
+              Solicitar Orçamento <FaArrowRight />
+            </a>
+          </motion.div>
+
         </div>
       </div>
     </section>

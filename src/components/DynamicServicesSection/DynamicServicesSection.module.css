@@ -1,7 +1,6 @@
---- START OF FILE DynamicServicesSection.module.css ---
-
+/* ATUALIZADO: Mais espaçamento superior (suspiro) */
 .servicesSection {
-  padding: 6rem 5%;
+  padding: 8rem 5% 6rem;
   background: var(--color-light-primary);
 }
 
@@ -25,23 +24,20 @@
   margin-right: auto;
 }
 
-/* --- Abas de Categoria --- */
-/* ATUALIZADO: Reduzido o espaçamento para caber em uma linha */
 .categoryTabs {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Permite quebrar a linha em telas muito pequenas */
-  gap: 0.8rem; /* Espaçamento entre botões reduzido */
+  flex-wrap: wrap;
+  gap: 0.8rem;
   margin-bottom: 3rem;
 }
 
-/* ATUALIZADO: Botões mais compactos */
 .categoryButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Espaçamento interno (ícone e texto) reduzido */
-  padding: 0.7rem 1.2rem; /* Preenchimento vertical e horizontal reduzido */
-  font-size: 0.9rem; /* Tamanho da fonte reduzido */
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: var(--font-heading);
   border: 2px solid #ddd;
@@ -66,12 +62,10 @@
   box-shadow: 0 5px 15px rgba(255, 9, 8, 0.2);
 }
 
-/* --- Área de Conteúdo --- */
 .contentDisplay {
   width: 100%;
 }
 
-/* --- Grid de Serviços --- */
 .serviceGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -130,6 +124,53 @@
   gap: 0.8rem;
 }
 
+.trainingCta {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border: 1px solid var(--color-support-beige);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: left;
+  gap: 1.5rem;
+}
+
+.trainingCta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  border-color: var(--color-primary-red);
+}
+
+.ctaIcon {
+  font-size: 2.5rem;
+  color: var(--color-primary-red);
+}
+
+.ctaText h4 {
+  font-size: 1.3rem;
+  margin: 0 0 0.3rem 0;
+  color: var(--color-dark-primary);
+}
+
+.ctaText p {
+  margin: 0;
+  color: #555;
+}
+
+.ctaArrow {
+  margin-left: auto;
+  font-size: 1.5rem;
+  color: var(--color-primary-red);
+  transition: transform 0.3s ease;
+}
+
+.trainingCta:hover .ctaArrow {
+  transform: translateX(5px);
+}
 
 /* --- Responsividade --- */
 @media (max-width: 992px) {
@@ -145,11 +186,18 @@
   .title {
     font-size: 2.2rem;
   }
+  
+  /* ATUALIZADO: Abas de serviço agora empilham verticalmente no mobile */
   .categoryTabs {
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
   .categoryButton {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
   }
 }

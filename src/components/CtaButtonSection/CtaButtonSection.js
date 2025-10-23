@@ -6,16 +6,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import styles from './HorizontalCtaSection.module.css';
 
 const HorizontalCtaSection = () => {
-  const handleScrollToContact = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contato');
-    if (contactSection) {
-      window.scrollTo({
-        top: contactSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
+  // Constrói o link do WhatsApp com uma mensagem padrão
+  const whatsappUrl = "https://wa.me/5551920007893?text=" + encodeURIComponent("Olá! Gostaria de solicitar um orçamento.");
 
   return (
     <section className={styles.ctaSection}>
@@ -30,7 +22,12 @@ const HorizontalCtaSection = () => {
           <h3>Pronto para Garantir sua Segurança?</h3>
           <p>Não espere por imprevistos. Regularize seu imóvel agora.</p>
         </div>
-        <a href="#contato" onClick={handleScrollToContact} className={styles.ctaButton}>
+        <a 
+          href={whatsappUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className={styles.ctaButton}
+        >
           Solicitar Orçamento
         </a>
       </motion.div>

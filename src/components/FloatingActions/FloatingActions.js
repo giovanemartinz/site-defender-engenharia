@@ -3,23 +3,38 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
-import ChatbotPopup from '../ChatbotPopup/ChatbotPopup'; // Importar o chatbot
+import ChatbotPopup from '../ChatbotPopup/ChatbotPopup';
 import styles from './FloatingActions.module.css';
 
 const FloatingActions = () => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [hoveredItem, setHoveredItem] = useState(null);
+  // NOVO ESTADO PARA DETECTAR TELA MOBILE
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Considera "topo" os primeiros 100 pixels da página
-      setIsAtTop(window.scrollY < 100);
+    // Função para verificar o tamanho da tela
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Verifica a posição inicial no carregamento
+    // Verifica no carregamento inicial
+    checkIsMobile();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Adiciona listener para redimensionamento da tela
+    window.addEventListener('resize', checkIsMobile);
+
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY < 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    // Limpeza dos listeners
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const textVariants = {
@@ -27,8 +42,11 @@ const FloatingActions = () => {
     visible: { width: 'auto', opacity: 1, marginLeft: '0.5rem' }
   };
 
+  // LÓGICA ATUALIZADA: Só expande se NÃO for mobile E (estiver no topo OU com hover)
   const isExpanded = (itemName) => {
-    // Expande se estiver no topo OU se o mouse estiver sobre o item
+    if (isMobile) {
+      return false; // Força a ficar fechado no mobile
+    }
     return isAtTop || hoveredItem === itemName;
   };
 
@@ -36,7 +54,7 @@ const FloatingActions = () => {
     <div className={styles.floatingContainer}>
       {/* Botão do WhatsApp */}
       <a
-        href="https://wa.me/5551920007893" // Coloque seu número de WhatsApp aqui
+        href="https://wa.me/5551920007893"
         target="_blank"
         rel="noopener noreferrer"
         className={`${styles.actionButton} ${styles.whatsappBg}`}
