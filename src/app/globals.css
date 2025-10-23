@@ -5,6 +5,15 @@
   margin: 0;
 }
 
+/* 
+  ================================================================
+  => CORREÇÃO GLOBAL PARA SCROLL HORIZONTAL
+  ================================================================
+*/
+html, body {
+  overflow-x: hidden;
+}
+
 :root {
   /* Paleta de Cores DEFENDER */
   --color-primary-red: #ff0908;

@@ -154,6 +154,7 @@
   background-color: #fff;
 }
 
+
 /* --- Responsividade --- */
 @media (max-width: 1024px) {
   .headline { font-size: 3rem; }
@@ -172,12 +173,12 @@
     max-width: 100%;
     justify-content: center;
   }
+  /* ATUALIZADO: Esconde toda a barra de controle no mobile */
   .carouselControls {
-    bottom: 6rem;
+    display: none;
   }
 }
 
-/* NOVO: Esconde botões de seta no desktop */
 @media (min-width: 769px) {
   .controlButton {
     display: none;
