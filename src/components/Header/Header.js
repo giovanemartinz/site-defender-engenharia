@@ -14,6 +14,7 @@ export const Header = () => {
     { targetId: 'sobre', label: 'Sobre' },
     { targetId: 'servicos', label: 'Serviços' },
     { targetId: 'processo', label: 'Como Funciona' },
+    { label: "Treinamentos", href: "https://treinamentos.defender.eng.br", type: "external" },
     { targetId: 'contato', label: 'Contato' },
   ];
 

@@ -67,8 +67,7 @@ const HowItWorksSection = () => {
           className={styles.processGrid}
           initial="hidden"
           whileInView="visible"
-          // A propriedade 'once' foi removida para que a animação ocorra toda vez
-          viewport={{ amount: 0.3 }} 
+          viewport={{ amount: 0.3 }} // A animação re-inicia toda vez que entra/sai da tela
           variants={containerVariants}
         >
           {processSteps.map((step, index) => (
@@ -79,16 +78,17 @@ const HowItWorksSection = () => {
             >
               <motion.div
                 className={styles.cardFlipper}
-                // O whileHover foi removido
+                // ATUALIZAÇÃO PRINCIPAL: A lógica da animação foi alterada
+                // Agora, o estado 'visible' gira e PERMANECE girado.
+                // O estado 'hidden' (quando sai da tela) volta à posição original.
                 variants={{
-                  hidden: { rotateY: 0 },
-                  visible: {
-                    rotateY: [0, 180, 180, 0],
+                  hidden: { rotateY: 0 }, // Estado inicial (frente)
+                  visible: { // Estado quando está visível (verso)
+                    rotateY: 180,
                     transition: {
-                      duration: 4,
+                      duration: 0.8, // Duração do giro
                       ease: "easeInOut",
-                      times: [0, 0.2, 0.8, 1],
-                      delay: 0.5 + index * 0.2
+                      delay: 0.3 + index * 0.2 // Atraso para cada card
                     }
                   }
                 }}

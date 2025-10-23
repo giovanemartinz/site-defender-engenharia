@@ -7,7 +7,8 @@ import ProjectsSection from "@/components/ProjectsSection/ProjectsSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import TestimonialsSection from "@/components/TestimonialsSection/TestimonialsSection";
 import WhyChooseUs from "@/components/WhyChooseUs/WhyChooseUs";
-import FaqSection from "@/components/FaqSection/FaqSection"; // 1. Importar o novo componente
+import FaqSection from "@/components/FaqSection/FaqSection";
+import CtaButtonSection from "@/components/CtaButtonSection/CtaButtonSection"; // 1. Importar o novo componente
 
 export default function Home() {
   return (
@@ -17,9 +18,11 @@ export default function Home() {
       <AboutSummary />
       <WhyChooseUs />
       <HowItWorksSection />
+      <CtaButtonSection /> {/* 2. Adicionar a nova seção aqui */}
       <ProjectsSection />
       <TestimonialsSection />
-      <FaqSection /> {/* 2. Adicionar a nova seção aqui */}
+            <CtaButtonSection /> {/* 2. Adicionar a nova seção aqui */}
+      <FaqSection />
       <ContactSection />
     </>
   );

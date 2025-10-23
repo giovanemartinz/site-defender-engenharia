@@ -20,6 +20,7 @@ const footerData = {
     { label: "Sobre Nós", targetId: "sobre" },
     { label: "Serviços", targetId: "servicos" },
     { label: "Como Funciona", targetId: "processo" },
+     { label: "Treinamentos", targetId: "https://treinamentos.defender.eng.br", external: true },
     { label: "FAQ", targetId: "faq" }, // Assumindo que o ID da seção FAQ será "faq"
     { label: "Contato", targetId: "contato" }
   ],

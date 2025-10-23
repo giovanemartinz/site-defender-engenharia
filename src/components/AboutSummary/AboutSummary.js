@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './AboutSummary.module.css';
-import { FaBullseye, FaTasks, FaGem } from 'react-icons/fa';
+import { FaBullseye, FaTasks, FaGem, FaArrowRight } from 'react-icons/fa';
 
 const aboutData = {
   about: {
@@ -48,6 +48,17 @@ const aboutData = {
 };
 
 const AboutSummary = () => {
+  const handleScrollToContact = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('contato');
+    if (contactSection) {
+      window.scrollTo({
+        top: contactSection.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section id="sobre" className={styles.aboutSection}>
       <div className={styles.container}>
@@ -76,6 +87,22 @@ const AboutSummary = () => {
                 </div>
               </div>
             ))}
+
+            {/* NOVO CARD DE CTA ADICIONADO AQUI */}
+            <motion.div
+              className={styles.ctaCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.8 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <h3>Sua Segurança é Nossa Prioridade</h3>
+              <p>Fale com nossos engenheiros e receba uma proposta detalhada para o seu projeto.</p>
+              <a href="#contato" onClick={handleScrollToContact} className={styles.ctaCardButton}>
+                Solicitar Orçamento <FaArrowRight />
+              </a>
+            </motion.div>
+
           </motion.div>
 
           {/* Coluna da Direita: Importância do PPCI */}
