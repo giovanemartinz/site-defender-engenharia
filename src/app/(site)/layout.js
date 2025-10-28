@@ -18,7 +18,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata = {
-  title: 'Defender - Proteção Contra Incêndio',
+  title: 'Defender Engenharia - Proteção Contra Incêndio',
   description: 'Projetos e Obras de Detecção, Alarme e Combate de Incêndio.',
 };
 

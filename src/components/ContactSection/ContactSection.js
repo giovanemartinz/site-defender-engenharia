@@ -18,7 +18,8 @@ const formDataConfig = {
         { nome: "metragem", label: "Metragem (m²)", tipo: "numero", obrigatorio: false },
         { nome: "responsavel_legal", label: "Nome do responsável legal", tipo: "texto", obrigatorio: false },
         { nome: "possui_ppci", label: "Já possui PPCI?", tipo: "radio", opcoes: ["Sim", "Não"], obrigatorio: true },
-        { nome: "servicos_interesse", label: "Serviços de Interesse", tipo: "checkbox", opcoes: ["PPCI novo", "Renovação de PPCI", "LTIP", "Laudos técnicos", "Instalações", "Treinamentos", "Manutenção"], obrigatorio: true },
+        // ATUALIZAÇÃO: Adicionado "Outro" na lista de serviços
+        { nome: "servicos_interesse", label: "Serviços de Interesse", tipo: "checkbox", opcoes: ["PPCI novo", "Renovação de PPCI", "LTIP", "Laudos técnicos", "Instalações", "Treinamentos", "Manutenção", "Outro"], obrigatorio: true },
         { nome: "mensagem", label: "Detalhes do projeto ou mensagem adicional", tipo: "textarea", obrigatorio: false }
     ],
     botao: { texto: "Enviar e Receber Orçamento", acao: "submit" }
@@ -30,11 +31,6 @@ const formDataConfig = {
   }
 };
 
-
-// ===================================================================
-// CORREÇÃO: COMPONENTE MOVIDO PARA FORA PARA EVITAR PERDA DE FOCO
-// Ele agora recebe os dados e as funções de alteração como props.
-// ===================================================================
 const FieldRenderer = ({ field, formData, handleChange, handleCheckboxChange }) => {
     const isRequired = field.obrigatorio;
     const label = `${field.label}${isRequired ? '*' : ''}`;
@@ -109,10 +105,6 @@ const FieldRenderer = ({ field, formData, handleChange, handleCheckboxChange }) 
     }
 };
 
-
-// ===================================================================
-// COMPONENTE PRINCIPAL (ContactSection)
-// ===================================================================
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     nome_completo: '',
@@ -123,10 +115,12 @@ const ContactSection = () => {
     responsavel_legal: '',
     possui_ppci: '',
     servicos_interesse: [],
+    // ATUALIZAÇÃO: Novo campo de estado para o texto de "Outro"
+    outro_servico_texto: '',
     mensagem: ''
   });
 
-  const [formStatus, setFormStatus] = useState({ status: 'idle', message: '' }); // idle | sending | success | error
+  const [formStatus, setFormStatus] = useState({ status: 'idle', message: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -153,6 +147,14 @@ const ContactSection = () => {
     }
     
     setFormStatus({ status: 'sending', message: '' });
+    
+    // ATUALIZAÇÃO: Processa a lista de serviços para incluir o texto de "Outro"
+    const processedServices = formData.servicos_interesse.map(service => {
+        if (service === 'Outro' && formData.outro_servico_texto) {
+            return `Outro: ${formData.outro_servico_texto}`;
+        }
+        return service;
+    }).filter(service => service !== 'Outro' || formData.outro_servico_texto); // Remove "Outro" se o campo de texto estiver vazio
 
     const apiPayload = {
       nome_completo: formData.nome_completo,
@@ -162,7 +164,7 @@ const ContactSection = () => {
       metragem: formData.metragem,
       responsavel_legal: formData.responsavel_legal,
       possui_ppci: formData.possui_ppci,
-      servicos_interesse: formData.servicos_interesse.join(', '),
+      servicos_interesse: processedServices.join(', '),
       mensagem_adicional: formData.mensagem
     };
 
@@ -194,7 +196,6 @@ const ContactSection = () => {
               {formDataConfig.formulario_orcamento.descricao}
             </p>
             <div className={styles.formGrid}>
-              {/* ATUALIZADO: Passando props para o FieldRenderer */}
               {formDataConfig.formulario_orcamento.campos.map(field => (
                 <FieldRenderer 
                   key={field.nome} 
@@ -204,6 +205,22 @@ const ContactSection = () => {
                   handleCheckboxChange={handleCheckboxChange}
                 />
               ))}
+              
+              {/* ATUALIZAÇÃO: Campo de texto condicional para "Outro" */}
+              {formData.servicos_interesse.includes('Outro') && (
+                <div className={`${styles.formGroup} ${styles.gridSpan12}`}>
+                    <label htmlFor="outro_servico_texto">Por favor, especifique o serviço:</label>
+                    <input
+                        type="text"
+                        id="outro_servico_texto"
+                        name="outro_servico_texto"
+                        value={formData.outro_servico_texto}
+                        onChange={handleChange}
+                        placeholder="Ex: Laudo de estanqueidade de gás"
+                        required
+                    />
+                </div>
+              )}
             </div>
              <button type="submit" className={styles.submitButton} disabled={formStatus.status === 'sending'}>
                 {formStatus.status === 'sending' ? 'Enviando...' : formDataConfig.formulario_orcamento.botao.texto}

@@ -1,4 +1,4 @@
-// Arquivo: /components/ChatbotPopup/ChatbotPopup.js (substitua o conteúdo existente)
+// Arquivo: /components/ChatbotPopup/ChatbotPopup.js
 
 'use client';
 
@@ -6,15 +6,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoChatbubbles, IoClose, IoSend, IoCheckmarkDone } from 'react-icons/io5';
 import styles from './ChatbotPopup.module.css';
-// NOVO: Importa o serviço da API
 import { sendQuoteRequest } from '../../../services/api.service';
 
+// ATUALIZAÇÃO: Script do formulário com um novo passo condicional
 const formScript = [
   { id: 'start', question: 'Para começar, qual é o seu nome?', key: 'nome', type: 'text' },
   { id: 'phone', question: 'Ótimo! E qual o seu celular com DDD para contato?', key: 'celular', type: 'text' },
   { id: 'email', question: 'Perfeito. Agora, qual seu melhor e-mail?', key: 'email', type: 'text' },
   { id: 'ppci_check', question: 'O imóvel já possui PPCI (Plano de Prevenção Contra Incêndio)?', key: 'possui_ppci', type: 'radio', options: ['Sim', 'Não', 'Não sei informar'] },
-  { id: 'services', question: 'Quais destes serviços você tem interesse? (Pode marcar vários)', key: 'servicos', type: 'checkbox', options: ["PPCI novo", "Renovação de PPCI", "LTIP", "Laudos técnicos", "Instalações", "Treinamentos", "Manutenção"] },
+  { id: 'services', question: 'Quais destes serviços você tem interesse? (Pode marcar vários)', key: 'servicos', type: 'checkbox', options: ["PPCI novo", "Renovação de PPCI", "LTIP", "Laudos técnicos", "Instalações", "Treinamentos", "Manutenção", "Outro"] },
+  // NOVO PASSO: Este passo só será executado se "Outro" for selecionado
+  { id: 'other_text', question: 'Você marcou "Outro". Por favor, especifique qual serviço você precisa:', key: 'outro_servico_texto', type: 'text' },
   { id: 'final', question: 'Excelente! Recebemos suas informações. Nossa equipe de especialistas já está analisando e entrará em contato em breve. Muito obrigado!' }
 ];
 
@@ -58,9 +60,9 @@ const ChatbotPopup = ({ isExpanded }) => {
         const currentQuestion = formScript[currentStep];
         const userMessage = { id: Date.now(), sender: 'user', text: answer };
         setMessages(prev => [...prev, userMessage]);
-        // ATUALIZADO: Salva os dados no estado e já chama o próximo passo
-        setLeadData(prev => ({ ...prev, [currentQuestion.key]: answer }));
-        goToNextStep({ ...leadData, [currentQuestion.key]: answer }); // Passa os dados atualizados
+        const updatedLeadData = { ...leadData, [currentQuestion.key]: answer };
+        setLeadData(updatedLeadData);
+        goToNextStep(updatedLeadData);
     };
 
     const handleCheckboxSubmit = () => {
@@ -70,27 +72,40 @@ const ChatbotPopup = ({ isExpanded }) => {
         setSelectedCheckboxOptions([]);
     };
 
-    // ATUALIZADO: A função agora é async e recebe os dados mais recentes
     const goToNextStep = (updatedLeadData) => {
         setIsTyping(true);
-        const nextStepIndex = currentStep + 1;
+        let nextStepIndex = currentStep + 1;
 
-        setTimeout(async () => { // ATUALIZADO: O callback do timeout agora é async
+        // ATUALIZAÇÃO: Lógica para pular o passo "other_text" se "Outro" não foi selecionado
+        if (formScript[nextStepIndex] && formScript[nextStepIndex].id === 'other_text') {
+            const services = updatedLeadData.servicos || '';
+            if (!services.includes('Outro')) {
+                nextStepIndex++; // Pula o passo
+            }
+        }
+
+        setTimeout(async () => {
             setIsTyping(false);
 
             if (nextStepIndex < formScript.length) {
                 const nextQuestion = { ...formScript[nextStepIndex] };
 
-                // NOVO: Bloco para enviar o lead para a API antes da mensagem final
                 if (nextQuestion.id === 'final') {
-                    // Monta o payload no formato que a API espera
+                    // ATUALIZAÇÃO: Processa a lista de serviços para incluir o texto de "Outro"
+                    const servicesList = (updatedLeadData.servicos || '').split(', ');
+                    const finalServices = servicesList.map(s => {
+                        if (s === 'Outro' && updatedLeadData.outro_servico_texto) {
+                            return `Outro: ${updatedLeadData.outro_servico_texto}`;
+                        }
+                        return s;
+                    }).filter(service => service !== 'Outro' || updatedLeadData.outro_servico_texto).join(', ');
+
                     const apiPayload = {
                         nome_completo: updatedLeadData.nome || 'Não informado',
                         celular: updatedLeadData.celular || 'Não informado',
                         email: updatedLeadData.email || 'Não informado',
                         possui_ppci: updatedLeadData.possui_ppci || 'Não informado',
-                        servicos_interesse: updatedLeadData.servicos || 'Nenhum selecionado',
-                        // Campos não coletados pelo chatbot, mas esperados pela API
+                        servicos_interesse: finalServices,
                         endereco_imovel: 'Não coletado via chatbot',
                         metragem: 'Não coletado via chatbot',
                         responsavel_legal: 'Não coletado via chatbot',
@@ -98,12 +113,9 @@ const ChatbotPopup = ({ isExpanded }) => {
                     };
                     
                     try {
-                        // Envia os dados para a API
                         await sendQuoteRequest(apiPayload);
-                        console.log('Lead do chatbot enviado com sucesso!');
                     } catch (error) {
                         console.error('Falha ao enviar lead do chatbot:', error);
-                        // Se falhar, altera a mensagem final para informar o erro
                         nextQuestion.question = "Tivemos um problema ao registrar seus dados. Por favor, tente usar nosso formulário de contato ou chame no WhatsApp.";
                     }
                     setIsCompleted(true);
