@@ -1,3 +1,5 @@
+
+
 'use client';
 
 import React, { useState } from 'react';
@@ -71,11 +73,11 @@ const FaqItem = ({ item, isOpen, onClick }) => {
 const FaqSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Link do WhatsApp com mensagem contextual
   const whatsappUrl = "https://wa.me/5551920007893?text=" + encodeURIComponent("Olá! Tenho uma dúvida que não encontrei no FAQ e gostaria de falar com um especialista.");
 
   return (
-    <section className={styles.faqSection}>
+    // ATUALIZAÇÃO: Adicionado id="faq" aqui
+    <section id="faq" className={styles.faqSection}>
       <div className={styles.container}>
         <h2 className={styles.mainTitle}>{faqData.title}</h2>
         <p className={styles.mainSubtitle}>{faqData.subtitle}</p>
@@ -95,7 +97,6 @@ const FaqSection = () => {
           <h3>{faqData.cta.title}</h3>
           <p>{faqData.cta.text}</p>
           <div className={styles.buttonGroup}>
-            {/* BOTÕES ATUALIZADOS */}
             <a 
               href={whatsappUrl}
               target="_blank"

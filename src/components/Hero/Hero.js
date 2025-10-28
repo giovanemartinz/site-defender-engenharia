@@ -37,6 +37,10 @@ const Hero = () => {
     setCurrentSlide((prev) => (prev === 0 ? slidesData.length - 1 : prev - 1));
   };
 
+  const goToSlide = (slideIndex) => {
+    setCurrentSlide(slideIndex);
+  };
+
   useEffect(() => {
     const slideInterval = setInterval(nextSlide, 7000);
     return () => clearInterval(slideInterval);
@@ -59,7 +63,6 @@ const Hero = () => {
     exit: { y: -20, opacity: 0, transition: { duration: 0.4 } }
   };
   
-  // Variantes de animação para a imagem de fundo (crossfade)
   const backgroundVariants = {
     initial: { opacity: 0 },
     animate: { opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } },
@@ -67,12 +70,11 @@ const Hero = () => {
   };
 
   return (
-    <section className={styles.heroSection}>
-      {/* 1. Container para as imagens de fundo, que permitirá o efeito de sobreposição */}
+    <section id="hero" className={styles.heroSection}>
       <div className={styles.backgroundImageContainer}>
         <AnimatePresence>
           <motion.div
-            key={currentSlide} // A key é crucial para o AnimatePresence funcionar
+            key={currentSlide}
             className={styles.backgroundImage}
             style={{ backgroundImage: `url(${slidesData[currentSlide].backgroundImage})` }}
             variants={backgroundVariants}
@@ -119,6 +121,8 @@ const Hero = () => {
             <div
               key={index}
               className={`${styles.progressBar} ${currentSlide === index ? styles.active : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Ir para o slide ${index + 1}`}
             />
           ))}
         </div>
