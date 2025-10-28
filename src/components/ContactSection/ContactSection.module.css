@@ -191,3 +191,25 @@
   .gridSpan8 { grid-column: span 12; }
   .form { padding: 2rem; }
 }
+
+/* Adicione ao final do seu arquivo ContactSection.module.css */
+
+.formMessage {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.formMessage.success {
+  background-color: rgba(4, 120, 87, 0.2);
+  color: #069566;
+  border: 1px solid rgba(4, 120, 87, 0.3);
+}
+
+.formMessage.error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
