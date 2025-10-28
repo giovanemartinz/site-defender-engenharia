@@ -1,14 +1,12 @@
-// Arquivo: ContactSection.js (substitua o conteúdo existente)
-
 'use client';
 
-import React, { useState } from 'react'; // NOVO: Importa useState
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import styles from './ContactSection.module.css';
-import { sendQuoteRequest } from '../../../services/api.service'; // NOVO: Importa o serviço da API
+// Garanta que o caminho para o seu serviço de API esteja correto
+import { sendQuoteRequest } from '../../../services/api.service'; 
 
-// (O objeto formData original permanece o mesmo)
 const formDataConfig = {
   formulario_orcamento: {
     titulo: "Solicite um Orçamento Detalhado",
@@ -34,7 +32,6 @@ const formDataConfig = {
 };
 
 const ContactSection = () => {
-  // NOVO: Estado para gerenciar os dados do formulário
   const [formData, setFormData] = useState({
     nome_completo: '',
     celular: '',
@@ -47,16 +44,13 @@ const ContactSection = () => {
     mensagem: ''
   });
 
-  // NOVO: Estado para gerenciar o status do envio
   const [formStatus, setFormStatus] = useState({ status: 'idle', message: '' }); // idle | sending | success | error
 
-  // NOVO: Função para lidar com mudanças nos inputs de texto, radio, etc.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // NOVO: Função específica para checkboxes
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     setFormData(prev => {
@@ -68,11 +62,12 @@ const ContactSection = () => {
       }
     });
   };
-
-  // NOVO: Lógica de envio do formulário
+  
+  // ESTA É A FUNÇÃO CORRETA QUE CHAMA A API
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+    // Validação para o campo de checkbox
     if (formData.servicos_interesse.length === 0) {
       setFormStatus({ status: 'error', message: 'Por favor, selecione ao menos um serviço de interesse.' });
       return;
@@ -80,7 +75,6 @@ const ContactSection = () => {
     
     setFormStatus({ status: 'sending', message: '' });
 
-    // Mapeia os dados do formulário para o formato esperado pela API
     const apiPayload = {
       nome_completo: formData.nome_completo,
       celular: formData.celular,
@@ -89,14 +83,14 @@ const ContactSection = () => {
       metragem: formData.metragem,
       responsavel_legal: formData.responsavel_legal,
       possui_ppci: formData.possui_ppci,
-      servicos_interesse: formData.servicos_interesse.join(', '), // API espera uma string
+      servicos_interesse: formData.servicos_interesse.join(', '),
       mensagem_adicional: formData.mensagem
     };
 
     try {
       await sendQuoteRequest(apiPayload);
       setFormStatus({ status: 'success', message: 'Obrigado! Sua solicitação foi enviada com sucesso.' });
-      // Opcional: Limpar o formulário após o envio
+      // Opcional: Limpar o formulário após o envio bem-sucedido
       // setFormData({ ...initialState }); 
     } catch (error) {
       setFormStatus({ status: 'error', message: error.message || 'Falha ao enviar. Tente novamente mais tarde.' });
@@ -105,7 +99,7 @@ const ContactSection = () => {
 
   const info = formDataConfig.informacoes_contato;
 
-  // Renderizador de campos modificado para conectar ao estado
+  // Renderizador de campos (não precisa de alteração)
   const FieldRenderer = ({ field }) => {
     const isRequired = field.obrigatorio;
     const label = `${field.label}${isRequired ? '*' : ''}`;
@@ -205,7 +199,6 @@ const ContactSection = () => {
              <button type="submit" className={styles.submitButton} disabled={formStatus.status === 'sending'}>
                 {formStatus.status === 'sending' ? 'Enviando...' : formDataConfig.formulario_orcamento.botao.texto}
              </button>
-             {/* NOVO: Mensagens de feedback */}
              {formStatus.message && (
                 <p className={`${styles.formMessage} ${formStatus.status === 'success' ? styles.success : styles.error}`}>
                     {formStatus.message}
@@ -216,42 +209,17 @@ const ContactSection = () => {
           <aside className={styles.infoSidebar}>
              <h3 className={styles.sidebarTitle}>Contato Direto</h3>
              <ul className={styles.contactList}>
-               <li>
-                 <FaPhone className={styles.icon} />
-                 <div>
-                   <span>Telefone</span>
-                   <a href={`tel:${info.telefone.replace(/\D/g, '')}`}>{info.telefone}</a>
-                 </div>
-               </li>
-               <li>
-                 <FaEnvelope className={styles.icon} />
-                 <div>
-                   <span>E-mail</span>
-                   <a href={`mailto:${info.email}`}>{info.email}</a>
-                 </div>
-               </li>
-                <li>
-                 <FaMapMarkerAlt className={styles.icon} />
-                 <div>
-                   <span>Endereço</span>
-                   <p>{info.endereco}</p>
-                 </div>
-               </li>
+               <li><FaPhone className={styles.icon} /><div><span>Telefone</span><a href={`tel:${info.telefone.replace(/\D/g, '')}`}>{info.telefone}</a></div></li>
+               <li><FaEnvelope className={styles.icon} /><div><span>E-mail</span><a href={`mailto:${info.email}`}>{info.email}</a></div></li>
+               <li><FaMapMarkerAlt className={styles.icon} /><div><span>Endereço</span><p>{info.endereco}</p></div></li>
              </ul>
              <div className={styles.mapWrapper}>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.8993296652566!2d-51.1968331!3d-30.011046899999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951979c1c4b322c3%3A0x40d2a220ccd96669!2sAv.%20Guido%20Mondim%2C%20884%20-%20S%C3%A3o%20Geraldo%2C%20Porto%20Alegre%20-%20RS%2C%2090230-260!5e0!3m2!1sen!2sbr!4v1761244950182!5m2!1sen!2sbr"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+                  width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade">
+                </iframe>
              </div>
-             <div className={styles.sidebarFooter}>
-                <p>Equipe Defender</p>
-             </div>
+             <div className={styles.sidebarFooter}><p>Equipe Defender</p></div>
           </aside>
         </motion.div>
       </div>
