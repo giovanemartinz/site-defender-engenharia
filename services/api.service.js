@@ -1,4 +1,4 @@
-x// Crie a pasta /services na raiz do projeto e adicione este arquivo.
+// Crie a pasta /services na raiz do projeto e adicione este arquivo.
 // Arquivo: /services/api.service.js
 
 const API_ENDPOINT = 'https://geral-api-resend-defender.r954jc.easypanel.host/api/enviar-orcamento';

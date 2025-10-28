@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import styles from './ContactSection.module.css';
-// Garanta que o caminho para o seu serviço de API esteja correto
-import { sendQuoteRequest } from '../../../services/api.service'; 
+import { sendQuoteRequest } from '../../../services/api.service';
 
 const formDataConfig = {
   formulario_orcamento: {
@@ -31,76 +30,12 @@ const formDataConfig = {
   }
 };
 
-const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    nome_completo: '',
-    celular: '',
-    email: '',
-    endereco: '',
-    metragem: '',
-    responsavel_legal: '',
-    possui_ppci: '',
-    servicos_interesse: [],
-    mensagem: ''
-  });
 
-  const [formStatus, setFormStatus] = useState({ status: 'idle', message: '' }); // idle | sending | success | error
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-    setFormData(prev => {
-      const currentServices = prev.servicos_interesse;
-      if (checked) {
-        return { ...prev, servicos_interesse: [...currentServices, value] };
-      } else {
-        return { ...prev, servicos_interesse: currentServices.filter(s => s !== value) };
-      }
-    });
-  };
-  
-  // ESTA É A FUNÇÃO CORRETA QUE CHAMA A API
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Validação para o campo de checkbox
-    if (formData.servicos_interesse.length === 0) {
-      setFormStatus({ status: 'error', message: 'Por favor, selecione ao menos um serviço de interesse.' });
-      return;
-    }
-    
-    setFormStatus({ status: 'sending', message: '' });
-
-    const apiPayload = {
-      nome_completo: formData.nome_completo,
-      celular: formData.celular,
-      email: formData.email,
-      endereco_imovel: formData.endereco,
-      metragem: formData.metragem,
-      responsavel_legal: formData.responsavel_legal,
-      possui_ppci: formData.possui_ppci,
-      servicos_interesse: formData.servicos_interesse.join(', '),
-      mensagem_adicional: formData.mensagem
-    };
-
-    try {
-      await sendQuoteRequest(apiPayload);
-      setFormStatus({ status: 'success', message: 'Obrigado! Sua solicitação foi enviada com sucesso.' });
-      // Opcional: Limpar o formulário após o envio bem-sucedido
-      // setFormData({ ...initialState }); 
-    } catch (error) {
-      setFormStatus({ status: 'error', message: error.message || 'Falha ao enviar. Tente novamente mais tarde.' });
-    }
-  };
-
-  const info = formDataConfig.informacoes_contato;
-
-  // Renderizador de campos (não precisa de alteração)
-  const FieldRenderer = ({ field }) => {
+// ===================================================================
+// CORREÇÃO: COMPONENTE MOVIDO PARA FORA PARA EVITAR PERDA DE FOCO
+// Ele agora recebe os dados e as funções de alteração como props.
+// ===================================================================
+const FieldRenderer = ({ field, formData, handleChange, handleCheckboxChange }) => {
     const isRequired = field.obrigatorio;
     const label = `${field.label}${isRequired ? '*' : ''}`;
 
@@ -172,7 +107,74 @@ const ContactSection = () => {
       default:
         return null;
     }
+};
+
+
+// ===================================================================
+// COMPONENTE PRINCIPAL (ContactSection)
+// ===================================================================
+const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    nome_completo: '',
+    celular: '',
+    email: '',
+    endereco: '',
+    metragem: '',
+    responsavel_legal: '',
+    possui_ppci: '',
+    servicos_interesse: [],
+    mensagem: ''
+  });
+
+  const [formStatus, setFormStatus] = useState({ status: 'idle', message: '' }); // idle | sending | success | error
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
+
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData(prev => {
+      const currentServices = prev.servicos_interesse;
+      if (checked) {
+        return { ...prev, servicos_interesse: [...currentServices, value] };
+      } else {
+        return { ...prev, servicos_interesse: currentServices.filter(s => s !== value) };
+      }
+    });
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.servicos_interesse.length === 0) {
+      setFormStatus({ status: 'error', message: 'Por favor, selecione ao menos um serviço de interesse.' });
+      return;
+    }
+    
+    setFormStatus({ status: 'sending', message: '' });
+
+    const apiPayload = {
+      nome_completo: formData.nome_completo,
+      celular: formData.celular,
+      email: formData.email,
+      endereco_imovel: formData.endereco,
+      metragem: formData.metragem,
+      responsavel_legal: formData.responsavel_legal,
+      possui_ppci: formData.possui_ppci,
+      servicos_interesse: formData.servicos_interesse.join(', '),
+      mensagem_adicional: formData.mensagem
+    };
+
+    try {
+      await sendQuoteRequest(apiPayload);
+      setFormStatus({ status: 'success', message: 'Obrigado! Sua solicitação foi enviada com sucesso.' });
+    } catch (error) {
+      setFormStatus({ status: 'error', message: error.message || 'Falha ao enviar. Tente novamente mais tarde.' });
+    }
+  };
+
+  const info = formDataConfig.informacoes_contato;
 
   return (
     <section id="contato" className={styles.contactSection}>
@@ -192,8 +194,15 @@ const ContactSection = () => {
               {formDataConfig.formulario_orcamento.descricao}
             </p>
             <div className={styles.formGrid}>
+              {/* ATUALIZADO: Passando props para o FieldRenderer */}
               {formDataConfig.formulario_orcamento.campos.map(field => (
-                <FieldRenderer key={field.nome} field={field} />
+                <FieldRenderer 
+                  key={field.nome} 
+                  field={field}
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleCheckboxChange={handleCheckboxChange}
+                />
               ))}
             </div>
              <button type="submit" className={styles.submitButton} disabled={formStatus.status === 'sending'}>
